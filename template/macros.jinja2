@@ -1,0 +1,17 @@
+{% macro portada() %}
+    <header class="portada">
+        <h1>Instituto Virtual</h1>
+
+        <nav>
+            <a href="{{ url_for('inicio') }}">Inicio</a>
+            <a href="{{ url_for('lista_alumnos') }}">Alumnos</a>
+            <a href="{{ url_for('inicio') }}">Fechas</a>
+        </nav>
+    </header>
+{% endmacro %}
+
+{% macro footer() %}
+    <footer class="footer">
+        <p>Instituto Virtual - Todos los derechos reservados &copy; 2024</p>
+    </footer>
+{% endmacro %}

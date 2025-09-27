@@ -1,0 +1,17 @@
+{% import "macros.jinja2" as macros %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-index.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    {{ macros.portada() }}
+
+    {{ macros.footer() }}
+</body>
+</html>

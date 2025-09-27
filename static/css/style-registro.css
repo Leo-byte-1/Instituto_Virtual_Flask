@@ -1,0 +1,33 @@
+.cont-tarjeta{
+    display: flex;
+    justify-content: center;
+    margin: 50px 0 200px 0;
+}
+.tarjeta{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    width: 70%;
+    height: 200px;
+    background-color: #cfc7bf;
+}
+form div{
+    margin-bottom: 10px;
+}
+input{
+    padding: 8px;
+    width: 300px;
+    margin-left: 10px;
+    border-style: none;
+    border-radius: 5px;
+}
+.cont-btn{
+    display: flex;
+    justify-content: center;
+}
+button{
+    padding: 8px 18px;
+    border-style: none;
+    border-radius: 5px;
+}
