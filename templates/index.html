@@ -1,0 +1,38 @@
+{% import "macros.jinja2" as macros %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-index.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    {{ macros.portada() }}
+
+    <section class="bienvenida">
+        <h2 class="msj_bienvenida">Bienvenidos</h2>
+        <p>Sistema de gestión académica para el control y seguimiento de estudiantes, calificaciones y procesos de registro.</p>
+
+        <nav class="cont_nav">
+            <div>
+                <h2>Estudiantes</h2>
+                <a href="{{ url_for('lista_alumnos') }}"><button>Ver Estudiantes</button></a>
+            </div>
+            <div>
+                <h2>Registro</h2>
+                <a href="{{ url_for('registrar') }}"><button>Registrar Alumno</button></a>
+            </div>
+            <div>
+                <h2>Calificaciones</h2>
+                <a href="{{ url_for('calificaciones') }}"><button>Ver Calificaciones</button></a>
+            </div>            
+        </nav>
+        
+    </section>
+
+    {{ macros.footer() }}
+</body>
+</html>

@@ -2,10 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 import os 
 import database as db
 
-template_dir = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
-template_dir = os.path.join(template_dir, 'src', 'templates')
-
-app = Flask(__name__, template_folder = template_dir)
+app = Flask(__name__)
 
 @app.route("/")
 def inicio():
@@ -16,7 +13,7 @@ def inicio():
 def lista_alumnos():
     conn = db.conexion()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM alumnos")
+    cursor.execute("SELECT id, nombre, apellido, edad, dni FROM alumnos")
     myresult = cursor.fetchall()
     #Convertir los datos a diccionario
     insertObject = []
@@ -33,12 +30,13 @@ def addUser():
     nombre = request.form["nombre"]
     apellido = request.form["apellido"]
     edad = request.form["edad"]
+    dni = request.form["dni"]
 
-    if nombre and apellido and edad:
+    if nombre and apellido and edad and dni:
         conn = db.conexion()
         cursor = conn.cursor()
-        sql = "INSERT INTO alumnos (nombre, apellido, edad) VALUES (%s, %s, %s)"
-        datos = (nombre, apellido, edad)
+        sql = "INSERT INTO alumnos (nombre, apellido, edad, dni) VALUES (%s, %s, %s, %s)"
+        datos = (nombre, apellido, edad, dni)
         cursor.execute(sql, datos)
         conn.commit()
         cursor.close()
@@ -64,12 +62,13 @@ def edit(id):
     nombre = request.form['nombre']
     apellido = request.form['apellido']
     edad = request.form['edad']
+    dni = request.form["dni"]
 
     if nombre and apellido and edad:
         conn = db.conexion()
         cursor = conn.cursor()
-        sql = "UPDATE alumnos SET nombre = %s, apellido = %s, edad = %s WHERE id = %s"
-        data = (nombre, apellido, edad, id)
+        sql = "UPDATE alumnos SET nombre = %s, apellido = %s, edad = %s, dni = %s WHERE id = %s"
+        data = (nombre, apellido, edad, dni, id)
         cursor.execute(sql, data)
         db.conexion.commit()
         

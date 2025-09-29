@@ -7,10 +7,13 @@
 .datos, .aciones{
     border-collapse: collapse;
 }
-.datos th, td{
-    width: 150px;
+th, td{
+    width: 200px;
     height: 25px;
     border: solid 1px #000;
+}
+.datos td{
+    padding: 5px;
 }
 .id{
     text-align: center;

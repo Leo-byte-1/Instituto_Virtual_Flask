@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-base.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style-lista_alumnos.css') }}">
     <title>Document</title>
 </head>
@@ -18,7 +18,7 @@
         <table class="datos">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>DNI</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Edad</th>
@@ -28,7 +28,7 @@
             <tbody>
                 {% for d in data %}
                 <tr>
-                    <td class="id">{{ d.id }}</td>
+                    <td class="id">{{ d.dni }}</td>
                     <td>{{ d.nombre }}</td>
                     <td>{{ d.apellido }}</td>
                     <td>{{ d.edad }}</td>

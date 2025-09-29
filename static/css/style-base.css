@@ -1,26 +1,27 @@
 /*Estilo de la portada*/
 .portada{
     display: flex;
+    gap: 20%;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 50px;
-    background: rgb(127, 161, 224);
-}
-.portada nav{
-    display: flex;
-    align-items: center;
+    height: 70px;
+    background: rgb(15, 9, 75);
 }
 .portada h1{
     display: flex;
     align-items: center;
-    margin-right: 20%;
-    color: rgb(117, 99, 99);
+    font-size: 6mm;
+    font-family: Verdana;
+    color: #fff;
+}
+.portada nav{
+    display: flex;
+    gap: 20px;
 }
 .portada a{
-    color: white;
-    font-size: 4mm;
-    margin-right: 20px;
+    color: #fff;
+    font-size: 5mm;
 }
 
 /*Estilo del footer*/
@@ -30,5 +31,8 @@
     align-items: center;
     width: 100%;
     height: 100px;
-    background-color: rgb(127, 161, 224);
+    background: rgb(15, 9, 75);
+}
+.footer p{
+    color: #fff;
 }

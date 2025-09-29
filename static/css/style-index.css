@@ -1,61 +1,40 @@
-.portada{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 50px;
-    background: rgb(127, 161, 224);
-}
-.portada nav{
-    display: flex;
-    align-items: center;
-}
-.portada h1{
-    display: flex;
-    align-items: center;
-    margin-right: 20%;
-    color: rgb(117, 99, 99);
-}
-.portada a{
-    color: white;
-    font-size: 4mm;
-    margin-right: 20px;
-}
-
 .bienvenida{
     display: flex;
     flex-direction: column;
+    text-align: center;
     width: 100%;
-    height: 500px;
-    background-color: rgba(70, 80, 61, 0.267);
+    margin: 50px 0;
 }
-.bienvenida h1{
-    display: flex;
+.msj_bienvenida{
     font-family: Verdana;
-    margin: auto;
-    color: #fff;
-    font-size: 20mm;
+    font-size: 17mm;
+    margin: 0;
+}
+p{
+    font-size: 5mm;
 }
 .cont_nav{
-    margin: 0 0 100px 80px;
+    display: grid;
+    margin: auto;
+    margin-top: 50px;
+    grid-template-columns: repeat(3, 250px);
+    grid-template-rows: 200px;
+    gap: 30px;
 }
-.cont_nav nav{
+.cont_nav div{
     display: flex;
     flex-direction: column;
-    width: fit-content;
-}
-.cont_nav a{
-    font-style: none;
-    font-size: 6mm;
-    color: #fff;
-    margin-bottom: 20px;
-}
-
-.footer{
-    display: flex;
-    justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100px;
-    background-color: rgb(127, 161, 224);
+    justify-content: center;
+    border: solid 1px #302c2c;
+    border-radius: 10px;
+}
+.cont_nav button{
+    border-style: none;
+    border-radius: 8px;
+    background: rgb(15, 9, 75);
+    color: #fff;
+    font-style: none;
+    font-size: 5mm;
+    padding: 10px 20px;
 }
