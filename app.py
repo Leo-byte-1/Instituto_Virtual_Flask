@@ -69,10 +69,12 @@ def edit(id):
         cursor = conn.cursor()
         sql = "UPDATE alumnos SET nombre = %s, apellido = %s, edad = %s, dni = %s WHERE id = %s"
         data = (nombre, apellido, edad, dni, id)
-        cursor.execute(sql, data)
-        db.conexion.commit()
-        
-        return redirect(url_for('lista_alumnos'))
+    cursor.execute(sql, data)
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return redirect(url_for('lista_alumnos'))
 
 @app.route("/registro")
 def registrar():
@@ -83,11 +85,6 @@ def registrar():
 def calificaciones():
 
     return render_template("calificaciones.html")
-
-@app.route("/fechas")
-def fechas():
-
-    return render_template("fechas.html")
 
 if __name__ == "__main__":
     app.run(debug=True, port=4000)

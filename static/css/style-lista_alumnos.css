@@ -1,7 +1,12 @@
+.titulo{
+    margin: 40px 0 0 60px;
+    font-family: Verdana;
+    font-size: 10mm;
+}
 .cont-table{
     display: flex;
     justify-content: center;
-    margin-top: 100px;
+    margin-top: 80px;
     margin-bottom: 100px;
 }
 .datos, .aciones{
@@ -31,5 +36,11 @@ th, td{
 
 .b-agregar{
     margin: 0 0 50px 50px;
-    padding: 10px 15px;
+    border-style: none;
+    border-radius: 8px;
+    background: rgb(15, 9, 75);
+    color: #fff;
+    font-style: none;
+    font-size: 5mm;
+    padding: 10px 20px;
 }
