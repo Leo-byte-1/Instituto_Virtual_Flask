@@ -18,14 +18,17 @@
 
         <nav class="cont_nav">
             <div>
+                <img src="{{ url_for('static', filename='img/lista-de-contactos.png') }}">
                 <h2>Estudiantes</h2>
                 <a href="{{ url_for('lista_alumnos') }}"><button>Ver Estudiantes</button></a>
             </div>
             <div>
+                <img src="{{ url_for('static', filename='img/registro.png') }}">
                 <h2>Registro</h2>
                 <a href="{{ url_for('registrar') }}"><button>Registrar Alumno</button></a>
             </div>
             <div>
+                <img src="{{ url_for('static', filename='img/grado.png') }}">
                 <h2>Calificaciones</h2>
                 <a href="{{ url_for('calificaciones') }}"><button>Ver Calificaciones</button></a>
             </div>            

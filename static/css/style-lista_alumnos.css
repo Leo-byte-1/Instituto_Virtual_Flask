@@ -38,22 +38,33 @@ td {
     border: solid 1px #000;
 }
 
-.btn-action {
+.btn-action, .btn-action-delete {
     border-style: none;
     width: 100%;
     height: 100%;
     cursor: pointer;
+    color: #fff;
+}
+.btn-action {
+    background: rgb(117, 117, 238);
+}
+.btn-action-delete {
+    background: rgb(231, 65, 65);
 }
 
 .b-agregar {
+    padding: 15px 25px;
+    cursor: pointer;
     margin: 0 0 50px 50px;
-    border-style: none;
-    border-radius: 8px;
-    background: rgb(15, 9, 75);
     color: #fff;
-    font-style: none;
-    font-size: 5mm;
-    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 /* Overlay del modal con efecto blur */

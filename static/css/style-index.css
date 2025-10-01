@@ -16,9 +16,9 @@ p{
 .cont_nav{
     display: grid;
     margin: auto;
-    margin-top: 50px;
-    grid-template-columns: repeat(3, 250px);
-    grid-template-rows: 200px;
+    margin-top: 25px;
+    grid-template-columns: repeat(3, 260px);
+    grid-template-rows: 250px;
     gap: 30px;
 }
 .cont_nav div{
@@ -29,12 +29,20 @@ p{
     border: solid 1px #302c2c;
     border-radius: 10px;
 }
+.cont_nav img {
+    width: 100px;
+    height: 100px;
+}
 .cont_nav button{
-    border-style: none;
-    border-radius: 8px;
-    background: rgb(15, 9, 75);
-    color: #fff;
-    font-style: none;
-    font-size: 5mm;
     padding: 10px 20px;
+    cursor: pointer;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }

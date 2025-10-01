@@ -9,28 +9,56 @@
     align-items: center;
     border-radius: 10px;
     border: solid 1px #473c3c;
-    width: 60%;
+    width: 40%;
     height: fit-content;
     padding: 30px 0;
 }
-form div{
-    margin-bottom: 15px;
-}
-input{
-    padding: 8px;
-    width: 300px;
-    margin-left: 10px;
-    border-style: none;
-    border-radius: 5px;
-    background: #d4baba;
-}
-.cont-btn{
+
+/*Estilos del formulario*/
+#editForm {
     display: flex;
-    justify-content: center;
-    margin: 0;
+    flex-direction: column;
+    gap: 20px;
 }
-button{
-    padding: 8px 18px;
-    border-style: none;
-    border-radius: 5px;
+
+#editForm label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    color: #2d3748;
+    font-size: 0.95rem;
+    gap: 8px;
+}
+
+#editForm input {
+    padding: 12px 16px;
+    border: 2px solid #b3c2d4;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f7fafc;
+    font-family: inherit;
+}
+
+#editForm input:focus {
+    outline: none;
+    border-color: #667eea;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+#editForm input:hover {
+    border-color: #e0e4e9;
+}
+.cont-btn button{
+    padding: 12px 30px;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
