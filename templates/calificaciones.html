@@ -12,6 +12,29 @@
 <body>
     {{ macros.portada() }}
 
+    <h1 class="titulo">Calificaciones</h1>
+
+    <div class="cont-table">
+    <table class="datos">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Materia</th>
+                <th>Nota</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for n in notas %}
+                <tr>
+                    <td>{{ n.nombre }}</td>
+                    <td>{{ n.materia }}</td>
+                    <td>{{ n.notas }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
     {{ macros.footer() }}
 </body>
 </html>

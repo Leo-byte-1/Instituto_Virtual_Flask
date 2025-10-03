@@ -36,3 +36,38 @@
 .footer p{
     color: #fff;
 }
+
+/*Estilo de la tabla*/
+.cont-table {
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+    margin-bottom: 100px;
+}
+
+.datos,
+.aciones {
+    border-collapse: collapse;
+}
+
+th,
+td {
+    width: 200px;
+    height: 25px;
+    border: solid 1px #000;
+}
+
+.datos td {
+    padding: 5px;
+}
+
+.id {
+    text-align: center;
+}
+
+/*Estilo del titulo de la página*/
+.titulo {
+    margin: 40px 0 0 60px;
+    font-family: Verdana;
+    font-size: 10mm;
+}
