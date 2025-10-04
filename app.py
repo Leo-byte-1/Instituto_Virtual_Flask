@@ -44,6 +44,11 @@ def crear_app():
 
         return render_template("index.html")
 
+    # Aceptar llamadas directas a /index.html (algunos navegadores/entornos usan este path)
+    @app.route('/index.html')
+    def index_html():
+        return redirect(url_for('inicio'))
+
     @app.route("/lista-alumnos")
     def lista_alumnos():
         try:
@@ -162,6 +167,13 @@ def crear_app():
         conn.close()
 
         return render_template("calificaciones.html", notas=insertObjectC)
+
+    # Manejador 404 simple para mostrar la plantilla de error con información útil
+    @app.errorhandler(404)
+    def page_not_found(error):
+        # Mostrar el path solicitado ayuda a diagnosticar accesos erróneos
+        mensaje = f"Not Found: {request.path}"
+        return render_template('error.html', error=mensaje), 404
     return app
 
 
