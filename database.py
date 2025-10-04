@@ -3,24 +3,34 @@ import psycopg2
 
 
 def conexion():
-    """Crear y devolver una conexión a PostgreSQL.
+    # Permitir una URL completa de conexión (ej. proporcionada por un PaaS)
+    # Si existe DATABASE_URL, usarla como DSN.
+    database_url = os.getenv('DATABASE_URL') or os.getenv('DB_URL')
 
-    Lee la configuración desde variables de entorno con valores por
-    defecto para desarrollo. Ejemplos de variables:
-      - DB_HOST (por defecto 127.0.0.1)
-      - DB_PORT (por defecto 5432)
-      - DB_USER
-      - DB_PASSWORD
-      - DB_NAME (por defecto datosalumnos)
+    # Si DB_HOST contiene una URL completa accidentalmente, también la aceptamos
+    db_host = os.getenv('DB_HOST')
 
-    Retorna: objeto psycopg2.connection
-    """
+    if database_url:
+        try:
+            # psycopg2 acepta la URI/DSN directamente
+            return psycopg2.connect(database_url)
+        except Exception:
+            # Re-raise con más contexto
+            raise
+
+    if db_host and (db_host.startswith('postgres://') or db_host.startswith('postgresql://')):
+        try:
+            return psycopg2.connect(db_host)
+        except Exception:
+            raise
+
+    # Configurar desde variables separadas (host/port/user/password/dbname)
     config = {
-        'host': os.getenv('DB_HOST'),
-        'port': os.getenv('DB_PORT'),
-        'user': os.getenv('DB_USER'),
-        'password': os.getenv('DB_PASSWORD'),
-        'dbname': os.getenv('DB_NAME'),
+        'host': db_host or os.getenv('DB_HOST', '127.0.0.1'),
+        'port': os.getenv('DB_PORT', '5432'),
+        'user': os.getenv('DB_USER', 'postgres'),
+        'password': os.getenv('DB_PASSWORD', ''),
+        'dbname': os.getenv('DB_NAME', 'datosalumnos'),
     }
 
     # psycopg2 lanzará una excepción si la conexión falla; la app
