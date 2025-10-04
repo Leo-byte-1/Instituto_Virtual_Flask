@@ -4,99 +4,123 @@ import database as db
 
 app = Flask(__name__)
 
-@app.route("/")
-def inicio():
+def crear_app():
+    @app.route("/")
+    def inicio():
 
-    return render_template("index.html")
+        return render_template("index.html")
 
-@app.route("/lista-alumnos")
-def lista_alumnos():
-    conn = db.conexion()
-    cursor = conn.cursor()
-    cursor.execute("SELECT id, nombre, apellido, edad, dni FROM alumnos")
-    myresult = cursor.fetchall()
-    #Convertir los datos a diccionario
-    insertObject = []
-    columnNames = [column[0] for column in cursor.description]
-    for record in myresult:
-        insertObject.append(dict(zip(columnNames, record)))
-    cursor.close()
-    conn.close()
+    @app.route("/lista-alumnos")
+    def lista_alumnos():
+        conn = db.conexion()
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, nombre, apellido, edad, dni FROM alumnos")
+        myresult = cursor.fetchall()
+        #Convertir los datos a diccionario
+        insertObject = []
+        columnNames = [column[0] for column in cursor.description]
+        for record in myresult:
+            insertObject.append(dict(zip(columnNames, record)))
+        cursor.close()
+        conn.close()
 
-    return render_template("lista_alumnos.html", data = insertObject)
+        return render_template("lista_alumnos.html", data = insertObject)
 
-@app.route("/user", methods=["POST"])
-def addUser():
-    conn = db.conexion()
-    cursor = conn.cursor()
+    @app.route("/user", methods=["POST"])
+    def addUser():
+        conn = db.conexion()
+        cursor = conn.cursor()
 
-    nombre = request.form["nombre"]
-    apellido = request.form["apellido"]
-    edad = request.form["edad"]
-    dni = request.form["dni"]
+        nombre = request.form["nombre"]
+        apellido = request.form["apellido"]
+        edad = request.form["edad"]
+        dni = request.form["dni"]
 
-    if nombre and apellido and edad and dni:
-        sql = "INSERT INTO alumnos (nombre, apellido, edad, dni) VALUES (%s, %s, %s, %s)"
-        datos = (nombre, apellido, edad, dni)
-        cursor.execute(sql, datos)
+        if nombre and apellido and edad and dni:
+            sql = "INSERT INTO alumnos (nombre, apellido, edad, dni) VALUES (%s, %s, %s, %s)"
+            datos = (nombre, apellido, edad, dni)
+            cursor.execute(sql, datos)
+            conn.commit()
+            cursor.close()
+            conn.close()
+
+        return redirect(url_for('lista_alumnos'))
+
+    @app.route("/delete/<string:id>")
+    def delete(id):
+        conn = db.conexion()
+        cursor = conn.cursor()
+        sql = "DELETE FROM alumnos WHERE id=%s"
+        data = (id,)
+        cursor.execute(sql, data)
         conn.commit()
         cursor.close()
         conn.close()
 
-    return redirect(url_for('lista_alumnos'))
+        return redirect(url_for('lista_alumnos'))
 
-@app.route("/delete/<string:id>")
-def delete(id):
-    conn = db.conexion()
-    cursor = conn.cursor()
-    sql = "DELETE FROM alumnos WHERE id=%s"
-    data = (id,)
-    cursor.execute(sql, data)
-    conn.commit()
-    cursor.close()
-    conn.close()
+    @app.route("/edit/<string:id>", methods=['POST'])
+    def edit(id):
+        conn = db.conexion()
+        cursor = conn.cursor()
+        nombre = request.form['nombre']
+        apellido = request.form['apellido']
+        edad = request.form['edad']
+        dni = request.form["dni"]
 
-    return redirect(url_for('lista_alumnos'))
+        if nombre and apellido and edad:
+            sql = "UPDATE alumnos SET nombre = %s, apellido = %s, edad = %s, dni = %s WHERE id = %s"
+            data = (nombre, apellido, edad, dni, id)
+        cursor.execute(sql, data)
+        conn.commit()
+        cursor.close()
+        conn.close()
 
-@app.route("/edit/<string:id>", methods=['POST'])
-def edit(id):
-    conn = db.conexion()
-    cursor = conn.cursor()
-    nombre = request.form['nombre']
-    apellido = request.form['apellido']
-    edad = request.form['edad']
-    dni = request.form["dni"]
+        return redirect(url_for('lista_alumnos'))
 
-    if nombre and apellido and edad:
-        sql = "UPDATE alumnos SET nombre = %s, apellido = %s, edad = %s, dni = %s WHERE id = %s"
-        data = (nombre, apellido, edad, dni, id)
-    cursor.execute(sql, data)
-    conn.commit()
-    cursor.close()
-    conn.close()
+    @app.route("/buscar", methods=['POST'])
+    def buscar():
+        buscar = request.form["buscar"]
+        conn = db.conexion()
+        cursor = conn.cursor()
 
-    return redirect(url_for('lista_alumnos'))
+        # Seleccionar las mismas columnas que usa la plantilla
+        sql = "SELECT id, nombre, apellido, edad, dni FROM alumnos WHERE nombre = %s"
+        params = (buscar,)
+        cursor.execute(sql, params)
+        myresult = cursor.fetchall()
+        insertObject = []
+        columnNames = [column[0] for column in cursor.description]
+        for record in myresult:
+            insertObject.append(dict(zip(columnNames, record)))
+        cursor.close()
+        conn.close()
 
-@app.route("/registro")
-def registrar():
+        # Devolver como 'data' para que la plantilla principal la use de forma consistente
+        return render_template("lista_alumnos.html", data=insertObject)
 
-    return render_template("registro.html")
+    @app.route("/registro")
+    def registrar():
 
-@app.route("/calificaciones")
-def calificaciones():
-    conn = db.conexion()
-    cursor = conn.cursor()
-    cursor.execute("SELECT a.nombre, m.materia, n.notas FROM notas n JOIN alumnos a ON n.id_alumno = a.id_alumno JOIN materias m ON m.id_materia = n.id_materia ORDER BY a.nombre")
-    myresult = cursor.fetchall()
-    #Convertir los datos a diccionario
-    insertObjectC = []
-    columnNames = [column[0] for column in cursor.description]
-    for record in myresult:
-        insertObjectC.append(dict(zip(columnNames, record)))
-    cursor.close()
-    conn.close()
+        return render_template("registro.html")
 
-    return render_template("calificaciones.html", notas = insertObjectC)
+    @app.route("/calificaciones")
+    def calificaciones():
+        conn = db.conexion()
+        cursor = conn.cursor()
+        cursor.execute("SELECT a.nombre, m.materia, n.notas FROM notas n JOIN alumnos a ON n.id_alumno = a.id_alumno JOIN materias m ON m.id_materia = n.id_materia ORDER BY a.nombre")
+        myresult = cursor.fetchall()
+        #Convertir los datos a diccionario
+        insertObjectC = []
+        columnNames = [column[0] for column in cursor.description]
+        for record in myresult:
+            insertObjectC.append(dict(zip(columnNames, record)))
+        cursor.close()
+        conn.close()
+
+        return render_template("calificaciones.html", notas = insertObjectC)
+    return app
 
 if __name__ == "__main__":
+    app = crear_app()
     app.run(debug=True, port=4000)

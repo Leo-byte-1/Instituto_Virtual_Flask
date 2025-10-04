@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-macro.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style-lista_alumnos.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-macro.css') }}">
     <script src="{{ url_for('static', filename='js/CodigoListaAlumnos.js') }}" defer></script>
     <title>Document</title>
 </head>
@@ -16,6 +16,10 @@
     {{ macros.portada() }}
 
     <h1 class="titulo">Lista de Estudiantes</h1>
+    <form action="/buscar" method="POST">
+        <input placeholder="Buscar" type="text" name="buscar">
+        <button type="submit">Buscar</button>
+    </form>
 
     <div class="cont-table">
         <table class="datos">
@@ -29,6 +33,7 @@
             </thead>
 
             <tbody>
+                {% if data and data|length > 0 %}
                 {% for d in data %}
                 <tr>
                     <td class="id">{{ d.dni }}</td>
@@ -37,6 +42,11 @@
                     <td>{{ d.edad }}</td>
                 </tr>
                 {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="4">No se encontraron resultados.</td>
+                </tr>
+                {% endif %}
             </tbody>
         </table>
         <table class="aciones">

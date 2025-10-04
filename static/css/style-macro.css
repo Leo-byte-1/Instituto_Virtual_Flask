@@ -41,28 +41,29 @@
 .cont-table {
     display: flex;
     justify-content: center;
+    margin: auto;
+    width: fit-content;
+    border: solid 1px #000;
     margin-top: 80px;
     margin-bottom: 100px;
 }
-
-.datos,
-.aciones {
+table{
     border-collapse: collapse;
 }
-
 th,
 td {
     width: 200px;
     height: 25px;
-    border: solid 1px #000;
+    text-align: center;
 }
-
+.aciones th, td{
+    width: 100px;
+}
 .datos td {
     padding: 5px;
 }
-
-.id {
-    text-align: center;
+td{
+    border-bottom: solid 1px #000;
 }
 
 /*Estilo del titulo de la página*/

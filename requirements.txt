@@ -3,3 +3,4 @@
 # mysql-connector-python: conector MySQL (importado como mysql.connector en database.py)
 Flask>=2.2
 mysql-connector-python>=8.0
+gunicorn

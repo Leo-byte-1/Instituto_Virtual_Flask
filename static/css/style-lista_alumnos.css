@@ -4,44 +4,11 @@
     font-size: 10mm;
 }
 
-.cont-table {
-    display: flex;
-    justify-content: center;
-    margin-top: 80px;
-    margin-bottom: 100px;
-}
-
-.datos,
-.aciones {
-    border-collapse: collapse;
-}
-
-th,
-td {
-    width: 200px;
-    height: 25px;
-    border: solid 1px #000;
-}
-
-.datos td {
-    padding: 5px;
-}
-
-.id {
-    text-align: center;
-}
-
-.aciones th,
-td {
-    width: 70px;
-    height: 25px;
-    border: solid 1px #000;
-}
-
 .btn-action, .btn-action-delete {
     border-style: none;
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
+    border-radius: 10px;
     cursor: pointer;
     color: #fff;
 }
