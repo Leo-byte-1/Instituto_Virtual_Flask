@@ -16,11 +16,11 @@ def conexion():
     Retorna: objeto psycopg2.connection
     """
     config = {
-        'host': os.getenv('DB_HOST', '127.0.0.1'),
-        'port': os.getenv('DB_PORT', '5432'),
-        'user': os.getenv('DB_USER', 'postgres'),
-        'password': os.getenv('DB_PASSWORD', ''),
-        'dbname': os.getenv('DB_NAME', 'datosalumnos'),
+        'host': os.getenv('DB_HOST'),
+        'port': os.getenv('DB_PORT'),
+        'user': os.getenv('DB_USER'),
+        'password': os.getenv('DB_PASSWORD'),
+        'dbname': os.getenv('DB_NAME'),
     }
 
     # psycopg2 lanzará una excepción si la conexión falla; la app
