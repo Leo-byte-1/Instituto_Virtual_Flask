@@ -56,10 +56,17 @@ def crear_app():
         except Exception as e:
             return render_template('error.html', error=str(e))
         cursor = conn.cursor(cursor_factory=RealDictCursor)
-        cursor.execute("SELECT id, nombre, apellido, edad, dni FROM alumnos")
-        myresult = cursor.fetchall()
-        # ya son filas tipo dict; convertir explícitamente a dicts simples
-        insertObject = [dict(r) for r in myresult]
+        try:
+            cursor.execute("SELECT id, nombre, apellido, edad, dni FROM alumnos")
+            myresult = cursor.fetchall()
+            # ya son filas tipo dict; convertir explitamente a dicts simples
+            insertObject = [dict(r) for r in myresult]
+        except Exception as e:
+            # Cerrar recursos y mostrar el error en la plantilla de error para depuracin
+            cursor.close()
+            conn.close()
+            return render_template('error.html', error=str(e))
+
         cursor.close()
         conn.close()
 
@@ -159,14 +166,49 @@ def crear_app():
         except Exception as e:
             return render_template('error.html', error=str(e))
         cursor = conn.cursor(cursor_factory=RealDictCursor)
-        cursor.execute("SELECT a.nombre, m.materia, n.notas FROM notas n JOIN alumnos a ON n.id_alumno = a.id_alumno JOIN materias m ON m.id_materia = n.id_materia ORDER BY a.nombre")
-        myresult = cursor.fetchall()
-        # ya son dicts
-        insertObjectC = [dict(r) for r in myresult]
+        try:
+            # Usar `a.id` como PK de alumnos para mantener consistencia con otras consultas (DELETE/UPDATE usan id)
+            cursor.execute("SELECT a.nombre, m.materia, n.notas FROM notas n JOIN alumnos a ON n.id_alumno = a.id JOIN materias m ON m.id_materia = n.id_materia ORDER BY a.nombre")
+            myresult = cursor.fetchall()
+            # ya son dicts
+            insertObjectC = [dict(r) for r in myresult]
+        except Exception as e:
+            cursor.close()
+            conn.close()
+            return render_template('error.html', error=str(e))
+
         cursor.close()
         conn.close()
 
         return render_template("calificaciones.html", notas=insertObjectC)
+
+    @app.route('/db-tables')
+    def db_tables():
+        """Ruta diagn
+stica que lista tablas no-sistema visibles por el usuario de la BD."""
+        try:
+            conn = db.conexion()
+        except Exception as e:
+            return render_template('error.html', error=str(e))
+        cursor = conn.cursor(cursor_factory=RealDictCursor)
+        try:
+            cursor.execute("""
+                SELECT schemaname, tablename
+                FROM pg_catalog.pg_tables
+                WHERE schemaname NOT IN ('pg_catalog', 'information_schema')
+                ORDER BY schemaname, tablename
+            """)
+            tables = cursor.fetchall()
+        except Exception as e:
+            cursor.close()
+            conn.close()
+            return render_template('error.html', error=str(e))
+
+        cursor.close()
+        conn.close()
+        # Devolver JSON simple con la lista de tablas
+        from flask import jsonify
+        return jsonify(tables)
 
     # Manejador 404 simple para mostrar la plantilla de error con información útil
     @app.errorhandler(404)

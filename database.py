@@ -4,20 +4,6 @@ from urllib.parse import urlparse
 
 
 def conexion():
-    """Crear y devolver una conexión a PostgreSQL.
-
-    Reglas:
-    - Si existe `DATABASE_URL` (o `DB_URL`) se intenta usarla primero.
-      Intentamos conectarnos con `sslmode='require'` y con `connect_timeout=5`
-      para evitar esperas largas cuando la base de datos remota no está accesible.
-    - Si no hay `DATABASE_URL`, construimos la conexión desde
-      `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD` y `DB_NAME`.
-    - Normalizamos nombres de BD con guiones reemplazándolos por guiones bajos
-      y avisamos por stdout (solo ayuda en desarrollo).
-
-    Lanza una excepción clara si faltan variables necesarias o falla la conexión.
-    """
-
     database_url = os.getenv('DATABASE_URL') or os.getenv('DB_URL')
 
     # Si viene una URL completa, usarla (con SSL y timeout preferente)
