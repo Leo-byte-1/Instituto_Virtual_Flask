@@ -1,11 +1,28 @@
-import mysql.connector
+import os
+import psycopg2
+
 
 def conexion():
+    """Crear y devolver una conexión a PostgreSQL.
+
+    Lee la configuración desde variables de entorno con valores por
+    defecto para desarrollo. Ejemplos de variables:
+      - DB_HOST (por defecto 127.0.0.1)
+      - DB_PORT (por defecto 5432)
+      - DB_USER
+      - DB_PASSWORD
+      - DB_NAME (por defecto datosalumnos)
+
+    Retorna: objeto psycopg2.connection
+    """
     config = {
-        "host": '127.0.0.1',
-        "port": "3306",
-        "user": "root",
-        "password": "82n9Y25zx",
-        "database": "datosalumnos"
+        'host': os.getenv('DB_HOST', '127.0.0.1'),
+        'port': os.getenv('DB_PORT', '5432'),
+        'user': os.getenv('DB_USER', 'postgres'),
+        'password': os.getenv('DB_PASSWORD', ''),
+        'dbname': os.getenv('DB_NAME', 'datosalumnos'),
     }
-    return mysql.connector.connect(**config)
+
+    # psycopg2 lanzará una excepción si la conexión falla; la app
+    # puede manejarla más arriba si se desea.
+    return psycopg2.connect(**config)

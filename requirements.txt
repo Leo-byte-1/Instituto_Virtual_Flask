@@ -2,5 +2,6 @@
 # Flask: framework web usado en app.py
 # mysql-connector-python: conector MySQL (importado como mysql.connector en database.py)
 Flask>=2.2
-mysql-connector-python>=8.0
+psycopg2-binary>=2.9
 gunicorn
+python-dotenv>=1.0

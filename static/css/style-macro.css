@@ -44,7 +44,6 @@
     margin: auto;
     width: fit-content;
     border: solid 1px #000;
-    margin-top: 80px;
     margin-bottom: 100px;
 }
 table{
@@ -71,4 +70,25 @@ td{
     margin: 40px 0 0 60px;
     font-family: Verdana;
     font-size: 10mm;
+}
+
+/*Barra de dusqueda*/
+.cont-buscar {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin: 40px 0;
+}
+input {
+    border-style: none;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 5mm;
+    width: 400px;
+    padding: 15px;
+    background: #bb9b9b;
+}
+input::placeholder {
+    font-size: 5mm;
+    color: #fff;
 }

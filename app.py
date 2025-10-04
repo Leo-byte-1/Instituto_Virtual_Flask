@@ -1,8 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for
-import os 
+import os
+from dotenv import load_dotenv
+from psycopg2.extras import RealDictCursor
 import database as db
 
+# Cargar variables de entorno desde el archivo .env si existe
+load_dotenv()
+
 app = Flask(__name__)
+# Configurar SECRET_KEY desde variables de entorno (evita hardcodear credenciales)
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'change-me')
 
 def crear_app():
     @app.route("/")
@@ -13,18 +20,15 @@ def crear_app():
     @app.route("/lista-alumnos")
     def lista_alumnos():
         conn = db.conexion()
-        cursor = conn.cursor()
+        cursor = conn.cursor(cursor_factory=RealDictCursor)
         cursor.execute("SELECT id, nombre, apellido, edad, dni FROM alumnos")
         myresult = cursor.fetchall()
-        #Convertir los datos a diccionario
-        insertObject = []
-        columnNames = [column[0] for column in cursor.description]
-        for record in myresult:
-            insertObject.append(dict(zip(columnNames, record)))
+        # ya son filas tipo dict; convertir explícitamente a dicts simples
+        insertObject = [dict(r) for r in myresult]
         cursor.close()
         conn.close()
 
-        return render_template("lista_alumnos.html", data = insertObject)
+        return render_template("lista_alumnos.html", data=insertObject)
 
     @app.route("/user", methods=["POST"])
     def addUser():
@@ -82,17 +86,14 @@ def crear_app():
     def buscar():
         buscar = request.form["buscar"]
         conn = db.conexion()
-        cursor = conn.cursor()
+        cursor = conn.cursor(cursor_factory=RealDictCursor)
 
         # Seleccionar las mismas columnas que usa la plantilla
         sql = "SELECT id, nombre, apellido, edad, dni FROM alumnos WHERE nombre = %s"
         params = (buscar,)
         cursor.execute(sql, params)
         myresult = cursor.fetchall()
-        insertObject = []
-        columnNames = [column[0] for column in cursor.description]
-        for record in myresult:
-            insertObject.append(dict(zip(columnNames, record)))
+        insertObject = [dict(r) for r in myresult]
         cursor.close()
         conn.close()
 
@@ -107,18 +108,15 @@ def crear_app():
     @app.route("/calificaciones")
     def calificaciones():
         conn = db.conexion()
-        cursor = conn.cursor()
+        cursor = conn.cursor(cursor_factory=RealDictCursor)
         cursor.execute("SELECT a.nombre, m.materia, n.notas FROM notas n JOIN alumnos a ON n.id_alumno = a.id_alumno JOIN materias m ON m.id_materia = n.id_materia ORDER BY a.nombre")
         myresult = cursor.fetchall()
-        #Convertir los datos a diccionario
-        insertObjectC = []
-        columnNames = [column[0] for column in cursor.description]
-        for record in myresult:
-            insertObjectC.append(dict(zip(columnNames, record)))
+        # ya son dicts
+        insertObjectC = [dict(r) for r in myresult]
         cursor.close()
         conn.close()
 
-        return render_template("calificaciones.html", notas = insertObjectC)
+        return render_template("calificaciones.html", notas=insertObjectC)
     return app
 
 if __name__ == "__main__":
