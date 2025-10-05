@@ -1,32 +1,31 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import os
 from dotenv import load_dotenv
 from psycopg2.extras import RealDictCursor
 import database as db
-from flask import jsonify
 
-# Cargar variables de entorno desde el archivo .env si existe
+# Cargar variables de entorno
 load_dotenv()
 
-app = Flask(__name__)
-# Configurar SECRET_KEY desde variables de entorno (evita hardcodear credenciales)
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'change-me')
-
 def crear_app():
-    # Registrar un logger sencillo para todas las peticiones
+    app = Flask(__name__)
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'change-me')
+
+    # Logger simple para todas las peticiones
     @app.before_request
     def _log_request():
         print(f"Request: {request.method} {request.path}")
 
+    # --------------------- RUTAS ---------------------
+
     @app.route('/health')
     def health():
-        # Devuelve OK y lista de rutas registradas para diagnóstico
         routes = [str(r) for r in app.url_map.iter_rules()]
         return jsonify({'status': 'ok', 'routes': routes})
 
     @app.route('/db-check')
     def db_check():
-        """Intentar una conexión real a la base de datos y devolver el resultado."""
+        """Probar conexión con la base de datos."""
         try:
             conn = db.conexion()
             conn.close()
@@ -48,6 +47,7 @@ def crear_app():
             conn = db.conexion()
         except Exception as e:
             return render_template('error.html', error=str(e))
+
         cursor = conn.cursor(cursor_factory=RealDictCursor)
         try:
             cursor.execute("SELECT id, nombre, apellido, edad, dni FROM alumnos ORDER BY apellido, nombre")
@@ -60,7 +60,6 @@ def crear_app():
 
         cursor.close()
         conn.close()
-
         return render_template("lista_alumnos.html", data=insertObject)
 
     @app.route("/user", methods=["POST"])
@@ -83,9 +82,8 @@ def crear_app():
             conn.commit()
             cursor.close()
             conn.close()
-            # Redirigir con parámetro de éxito
             return redirect(url_for('lista_alumnos', success='added'))
-        
+
         cursor.close()
         conn.close()
         return redirect(url_for('registrar'))
@@ -104,7 +102,6 @@ def crear_app():
         cursor.close()
         conn.close()
 
-        # Redirigir con parámetro de éxito
         return redirect(url_for('lista_alumnos', success='deleted'))
 
     @app.route("/edit/<string:id>", methods=['POST'])
@@ -114,6 +111,7 @@ def crear_app():
         except Exception as e:
             return render_template('error.html', error=str(e))
         cursor = conn.cursor()
+
         nombre = request.form['nombre'].strip()
         apellido = request.form['apellido'].strip()
         edad = request.form['edad']
@@ -127,8 +125,6 @@ def crear_app():
         
         cursor.close()
         conn.close()
-
-        # Redirigir con parámetro de éxito
         return redirect(url_for('lista_alumnos', success='updated'))
 
     @app.route("/buscar", methods=['POST'])
@@ -140,7 +136,6 @@ def crear_app():
             return render_template('error.html', error=str(e))
         cursor = conn.cursor(cursor_factory=RealDictCursor)
 
-        # Búsqueda más flexible usando ILIKE para case-insensitive
         sql = """
             SELECT id, nombre, apellido, edad, dni 
             FROM alumnos 
@@ -187,12 +182,11 @@ def crear_app():
 
         cursor.close()
         conn.close()
-
         return render_template("calificaciones.html", notas=insertObjectC)
 
     @app.route('/db-tables')
     def db_tables():
-        """Ruta diagnóstica que lista tablas no-sistema visibles por el usuario de la BD."""
+        """Lista tablas visibles (no del sistema)."""
         try:
             conn = db.conexion()
         except Exception as e:
@@ -213,35 +207,28 @@ def crear_app():
 
         cursor.close()
         conn.close()
-        from flask import jsonify
         return jsonify(tables)
 
     @app.route('/calificaciones-debug')
     def calificaciones_debug():
-        """Ruta de diagnóstico: devuelve conteos y algunas filas de ejemplo de las tablas usadas por /calificaciones.
-
-        Útil para verificar rápidamente si la BD tiene datos o si la consulta no encuentra filas.
-        """
+        """Ruta de diagnóstico de conteos y muestras."""
         try:
             conn = db.conexion()
         except Exception as e:
             return jsonify({'error': str(e)}), 500
+
         cursor = conn.cursor(cursor_factory=RealDictCursor)
-        try:
-            cursor.execute("SELECT count(*) AS cnt FROM alumnos")
-            alumnos_cnt = cursor.fetchone()['cnt']
-        except Exception:
-            alumnos_cnt = None
-        try:
-            cursor.execute("SELECT count(*) AS cnt FROM materias")
-            materias_cnt = cursor.fetchone()['cnt']
-        except Exception:
-            materias_cnt = None
-        try:
-            cursor.execute("SELECT count(*) AS cnt FROM notas")
-            notas_cnt = cursor.fetchone()['cnt']
-        except Exception:
-            notas_cnt = None
+
+        def safe_count(query):
+            try:
+                cursor.execute(query)
+                return cursor.fetchone()['cnt']
+            except Exception:
+                return None
+
+        alumnos_cnt = safe_count("SELECT count(*) AS cnt FROM alumnos")
+        materias_cnt = safe_count("SELECT count(*) AS cnt FROM materias")
+        notas_cnt = safe_count("SELECT count(*) AS cnt FROM notas")
 
         try:
             cursor.execute("""
@@ -266,13 +253,18 @@ def crear_app():
             'sample': sample
         })
 
+    # --------------------- ERRORES ---------------------
+
     @app.errorhandler(404)
     def page_not_found(error):
         mensaje = f"Not Found: {request.path}"
         return render_template('error.html', error=mensaje), 404
-    
+
     return app
 
 
-# Registrar rutas en el momento de la importación
+# Crear la aplicación
 app = crear_app()
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)))
