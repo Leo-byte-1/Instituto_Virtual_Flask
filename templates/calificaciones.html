@@ -14,26 +14,6 @@
 
     <h1 class="titulo">📊 Calificaciones</h1>
 
-    <!-- DEBUG: mostrar si la variable 'notas' llegó y algunas filas -->
-    <div id="debug-calificaciones" style="background: #fff3cd; border: 1px solid #ffeeba; padding: 8px; margin: 8px 0;">
-        <strong>DEBUG:</strong>
-        {% if notas is defined %}
-            <span>variable <code>notas</code> definida. longitud = {{ notas|length }}.</span>
-            {% if notas|length > 0 %}
-                <div style="margin-top:6px; font-size:0.9em;">
-                    <em>Primeras entradas (hasta 5):</em>
-                    <ul>
-                    {% for n in notas[:5] %}
-                        <li>{{ n.nombre }} — {{ n.materia }} — {{ n.notas }}</li>
-                    {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
-        {% else %}
-            <span>variable <code>notas</code> NO definida en la plantilla.</span>
-        {% endif %}
-    </div>
-
     <!-- Filtros y búsqueda -->
     <div class="filtros-container">
         <div class="filtro-group">

@@ -160,14 +160,20 @@ def crear_app():
 
     @app.route("/calificaciones")
     def calificaciones():
+        conn = None
+        cursor = None
+    
         try:
             conn = db.conexion()
-        except Exception as e:
-            return render_template('error.html', error=str(e))
-        cursor = conn.cursor(cursor_factory=RealDictCursor)
-        try:
+            cursor = conn.cursor(cursor_factory=RealDictCursor)
+        
+            # Query mejorada con más información de depuración
             cursor.execute("""
-                SELECT a.nombre, m.materia, n.notas 
+                SELECT 
+                    a.nombre, 
+                    a.apellido,
+                    m.materia, 
+                    n.notas 
                 FROM notas n 
                 JOIN alumnos a ON n.id_alumno = a.id 
                 JOIN materias m ON m.id_materia = n.id_materia 
@@ -175,14 +181,30 @@ def crear_app():
             """)
             myresult = cursor.fetchall()
             insertObjectC = [dict(r) for r in myresult]
+            
+            # Debug: imprimir en consola
+            print(f"[DEBUG] Total de calificaciones encontradas: {len(insertObjectC)}")
+            if len(insertObjectC) > 0:
+                print(f"[DEBUG] Primera calificación: {insertObjectC[0]}")
+            else:
+                print("[DEBUG] No se encontraron calificaciones en la base de datos")
+        
         except Exception as e:
-            cursor.close()
-            conn.close()
+            print(f"[ERROR] Error en query de calificaciones: {str(e)}")
+            if cursor:
+                cursor.close()
+            if conn:
+                conn.close()
             return render_template('error.html', error=str(e))
-
-        cursor.close()
-        conn.close()
-        return render_template("calificaciones.html", notas=insertObjectC)
+        
+        finally:
+            if cursor:
+                cursor.close()
+            if conn:
+                conn.close()
+    
+        # Asegurarnos de que siempre se pase la variable 'notas'
+        return render_template("calificaciones.html", notas=insertObjectC if insertObjectC else [])
 
     @app.route('/db-tables')
     def db_tables():
