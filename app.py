@@ -162,35 +162,31 @@ def crear_app():
     def calificaciones():
         conn = None
         cursor = None
-    
+
         try:
             conn = db.conexion()
             cursor = conn.cursor(cursor_factory=RealDictCursor)
         
-            # Query mejorada con más información de depuración
+            # Query con nombre completo concatenado
             cursor.execute("""
                 SELECT 
-                    a.nombre, 
+                    CONCAT(a.apellido, ', ', a.nombre) AS nombre_completo,
+                    a.nombre,
                     a.apellido,
                     m.materia, 
                     n.notas 
                 FROM notas n 
-                JOIN alumnos a ON n.id_alumno = a.id 
+                JOIN alumnos a ON n.id_alumno = a.id_alumno 
                 JOIN materias m ON m.id_materia = n.id_materia 
                 ORDER BY a.apellido, a.nombre, m.materia
             """)
             myresult = cursor.fetchall()
             insertObjectC = [dict(r) for r in myresult]
-            
-            # Debug: imprimir en consola
-            print(f"[DEBUG] Total de calificaciones encontradas: {len(insertObjectC)}")
-            if len(insertObjectC) > 0:
-                print(f"[DEBUG] Primera calificación: {insertObjectC[0]}")
-            else:
-                print("[DEBUG] No se encontraron calificaciones en la base de datos")
         
         except Exception as e:
             print(f"[ERROR] Error en query de calificaciones: {str(e)}")
+            import traceback
+            traceback.print_exc()  # Imprime stack trace completo
             if cursor:
                 cursor.close()
             if conn:
@@ -202,7 +198,7 @@ def crear_app():
                 cursor.close()
             if conn:
                 conn.close()
-    
+
         # Asegurarnos de que siempre se pase la variable 'notas'
         return render_template("calificaciones.html", notas=insertObjectC if insertObjectC else [])
 

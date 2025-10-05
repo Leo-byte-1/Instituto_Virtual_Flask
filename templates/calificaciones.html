@@ -91,10 +91,10 @@
             <tbody>
                 {% if notas and notas|length > 0 %}
                     {% for n in notas %}
-                    <tr data-nombre="{{ n.nombre|lower }}" data-materia="{{ n.materia|lower }}" data-nota="{{ n.notas }}">
+                    <tr data-nombre="{{ n.nombre_completo|lower }}" data-materia="{{ n.materia|lower }}" data-nota="{{ n.notas }}">
                         <td class="alumno-cell">
-                            <div class="alumno-avatar">{{ n.nombre[0]|upper }}</div>
-                            <span>{{ n.nombre }}</span>
+                            <div class="alumno-avatar">{{ n.apellido[0]|upper if n.apellido else 'A' }}</div>
+                            <span>{{ n.nombre_completo }}</span>
                         </td>
                         <td>{{ n.materia }}</td>
                         <td class="nota-cell">
@@ -113,7 +113,10 @@
                     {% endfor %}
                 {% else %}
                 <tr>
-                    <td colspan="4" class="no-data">No hay calificaciones registradas.</td>
+                    <td colspan="4" class="no-data">
+                        No hay calificaciones registradas.
+                        <br><small>Verifica que las tablas 'notas', 'alumnos' y 'materias' tengan datos y que los IDs coincidan.</small>
+                    </td>
                 </tr>
                 {% endif %}
             </tbody>

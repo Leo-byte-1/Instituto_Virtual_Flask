@@ -419,3 +419,142 @@
         width: 200px;
     }
 }
+
+/* Ajustes para la tabla unificada */
+.datos thead th:nth-child(5),
+.datos thead th:nth-child(6) {
+    width: 120px;
+}
+
+.datos tbody td:nth-child(5),
+.datos tbody td:nth-child(6) {
+    padding: 8px;
+}
+
+/* Botones en la tabla */
+.btn-action, .btn-action-delete {
+    border-style: none;
+    width: 100%;
+    max-width: 100px;
+    height: 35px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-action {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-action-delete {
+    background: linear-gradient(135deg, #f56565 0%, #c53030 100%);
+}
+
+.btn-action-delete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(245, 101, 101, 0.4);
+}
+
+.btn-action:active,
+.btn-action-delete:active {
+    transform: translateY(0);
+}
+
+/* Ajuste para celdas de DNI e ID */
+.datos td.id {
+    font-weight: 600;
+    color: #4a5568;
+}
+
+/* Empty state en la tabla */
+.no-data {
+    padding: 20px !important;
+    text-align: center;
+    background: #f7fafc;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.empty-state-icon {
+    font-size: 60px;
+    margin-bottom: 15px;
+    opacity: 0.4;
+}
+
+.empty-state-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin: 0 0 8px 0;
+}
+
+.empty-state-description {
+    font-size: 0.95rem;
+    color: #718096;
+    margin: 0 0 20px 0;
+}
+
+.empty-state-action {
+    padding: 10px 24px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.empty-state-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .datos {
+        font-size: 0.85rem;
+    }
+    
+    .btn-action, .btn-action-delete {
+        font-size: 0.75rem;
+        padding: 6px;
+        height: 32px;
+        max-width: 80px;
+    }
+    
+    .datos thead th:nth-child(5),
+    .datos thead th:nth-child(6) {
+        width: 90px;
+    }
+}
+
+@media (max-width: 640px) {
+    /* En móviles, hacer scroll horizontal */
+    .cont-table {
+        overflow-x: auto;
+    }
+    
+    .datos {
+        min-width: 600px;
+    }
+}
