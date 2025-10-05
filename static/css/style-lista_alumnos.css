@@ -1,40 +1,83 @@
+/* Título de la página */
 .titulo {
     margin: 40px 0 0 60px;
-    font-family: Verdana;
-    font-size: 10mm;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: #2d3748;
 }
 
+/* Botones de acción en tabla */
 .btn-action, .btn-action-delete {
     border-style: none;
     width: 90%;
-    height: 90%;
-    border-radius: 10px;
+    height: 35px;
+    border-radius: 8px;
     cursor: pointer;
     color: #fff;
-}
-.btn-action {
-    background: rgb(117, 117, 238);
-}
-.btn-action-delete {
-    background: rgb(231, 65, 65);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-.b-agregar {
-    padding: 15px 25px;
-    cursor: pointer;
-    margin: 0 0 50px 50px;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: inherit;
+.btn-action {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-/* Overlay del modal con efecto blur */
+.btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-action-delete {
+    background: linear-gradient(135deg, #f56565 0%, #c53030 100%);
+}
+
+.btn-action-delete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(245, 101, 101, 0.4);
+}
+
+.btn-action:active,
+.btn-action-delete:active {
+    transform: translateY(0);
+}
+
+/* Botón agregar mejorado */
+.b-agregar {
+    padding: 15px 35px;
+    margin: 30px 0 50px 60px;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.b-agregar::before {
+    content: '+ ';
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.b-agregar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(72, 187, 120, 0.4);
+}
+
+.b-agregar:active {
+    transform: translateY(0);
+}
+
+/* Overlay del modal con efecto blur mejorado */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -42,7 +85,7 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -57,38 +100,49 @@
     visibility: visible;
 }
 
-/* Contenedor del modal */
+/* Contenedor del modal mejorado */
 .modal {
     background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
     width: 90%;
-    max-width: 500px;
+    max-width: 520px;
     max-height: 90vh;
     overflow: hidden;
-    transform: scale(0.9) translateY(-20px);
-    transition: transform 0.3s ease;
+    transform: scale(0.9) translateY(-30px);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .modal-overlay.active .modal {
     transform: scale(1) translateY(0);
 }
 
-/* Header del modal */
+/* Header del modal mejorado */
 .modal-header {
-    padding: 24px 28px;
+    padding: 28px 32px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: none;
+    position: relative;
+}
+
+.modal-header::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1), transparent);
 }
 
 .modal-title {
     margin: 0;
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.6rem;
+    font-weight: 700;
     letter-spacing: -0.5px;
 }
 
@@ -97,69 +151,72 @@
     border: none;
     color: white;
     font-size: 28px;
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     line-height: 1;
 }
 
 .close-btn:hover {
     background: rgba(255, 255, 255, 0.3);
-    transform: rotate(90deg);
+    transform: rotate(90deg) scale(1.1);
 }
 
-/* Body del modal */
+/* Body del modal mejorado */
 .modal-body {
-    padding: 32px 28px;
+    padding: 36px 32px;
     max-height: 60vh;
     overflow-y: auto;
 }
 
-/* Formulario */
+/* Formulario mejorado */
 #editForm {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
 }
 
 #editForm label {
     display: flex;
     flex-direction: column;
-    font-weight: 500;
+    font-weight: 600;
     color: #2d3748;
     font-size: 0.95rem;
-    gap: 8px;
+    gap: 10px;
 }
 
 #editForm input {
-    padding: 12px 16px;
+    padding: 14px 18px;
     border: 2px solid #e2e8f0;
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 1rem;
     transition: all 0.3s ease;
     background: #f7fafc;
     font-family: inherit;
+    color: #2d3748;
 }
 
 #editForm input:focus {
     outline: none;
     border-color: #667eea;
     background: #ffffff;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
 }
 
 #editForm input:hover {
     border-color: #cbd5e0;
+    background: #ffffff;
 }
 
-/* Footer del modal */
+/* Footer del modal mejorado */
 .modal-footer {
-    padding: 20px 28px;
+    padding: 24px 32px;
     background: #f7fafc;
     display: flex;
     justify-content: flex-end;
@@ -167,15 +224,15 @@
     border-top: 1px solid #e2e8f0;
 }
 
-/* Botones */
+/* Botones del modal mejorados */
 .modal-btn {
-    padding: 12px 24px;
+    padding: 13px 28px;
     border: none;
     border-radius: 10px;
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     font-family: inherit;
 }
 
@@ -186,7 +243,8 @@
 
 .btn-secondary:hover {
     background: #cbd5e0;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .btn-primary {
@@ -196,7 +254,7 @@
 }
 
 .btn-primary:hover {
-    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.5);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
     transform: translateY(-2px);
 }
 
@@ -207,25 +265,53 @@
 
 /* Scrollbar personalizada para el body del modal */
 .modal-body::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
 }
 
 .modal-body::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 10px;
+    margin: 10px 0;
 }
 
 .modal-body::-webkit-scrollbar-thumb {
-    background: #cbd5e0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-radius: 10px;
 }
 
 .modal-body::-webkit-scrollbar-thumb:hover {
-    background: #a0aec0;
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
 }
 
-/* Responsive */
-@media (max-width: 640px) {
+/* Animación de carga */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Mensaje cuando no hay resultados */
+.cont-table td[colspan] {
+    padding: 40px 20px;
+    color: #718096;
+    font-style: italic;
+    font-size: 1.1rem;
+}
+
+/* Responsive mejorado */
+@media (max-width: 768px) {
+    .titulo {
+        margin: 30px 20px;
+    }
+    
+    .b-agregar {
+        margin: 20px 20px 40px;
+        width: calc(100% - 40px);
+    }
+    
     .modal {
         width: 95%;
         margin: 20px;
@@ -234,11 +320,11 @@
     .modal-header,
     .modal-body,
     .modal-footer {
-        padding: 20px;
+        padding: 24px 20px;
     }
     
     .modal-title {
-        font-size: 1.25rem;
+        font-size: 1.3rem;
     }
     
     .modal-footer {
@@ -247,5 +333,89 @@
     
     .modal-btn {
         width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-action,
+    .btn-action-delete {
+        font-size: 0.8rem;
+        padding: 8px 0;
+    }
+}
+
+/* Sistema de paginación */
+.pagination-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin: 30px auto 40px;
+    padding: 0 20px;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: #fff;
+    padding: 12px 24px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.pagination-btn {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.pagination-btn:hover:not(.disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.pagination-btn.disabled {
+    background: #cbd5e0;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.pagination-info {
+    font-size: 1rem;
+    color: #2d3748;
+}
+
+.pagination-info strong {
+    color: #667eea;
+}
+
+.pagination-items-info {
+    font-size: 0.9rem;
+    color: #718096;
+}
+
+.pagination-items-info strong {
+    color: #2d3748;
+    font-weight: 600;
+}
+
+/* Responsive paginación */
+@media (max-width: 640px) {
+    .pagination {
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px 20px;
+    }
+    
+    .pagination-btn {
+        width: 200px;
     }
 }

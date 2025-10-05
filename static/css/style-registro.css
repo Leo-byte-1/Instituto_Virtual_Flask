@@ -1,64 +1,232 @@
-.cont-tarjeta{
-    display: flex;
-    justify-content: center;
-    margin: 50px 0 200px 0;
-}
-.tarjeta{
+/* Contenedor principal de la tarjeta */
+.cont-tarjeta {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
-    border: solid 1px #473c3c;
-    width: 40%;
-    height: fit-content;
-    padding: 30px 0;
+    min-height: calc(100vh - 280px);
+    padding: 60px 20px;
+    animation: fadeIn 0.6s ease-out;
 }
 
-/*Estilos del formulario*/
+/* Tarjeta del formulario mejorada */
+.tarjeta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    border: none;
+    width: 100%;
+    max-width: 550px;
+    padding: 50px 40px;
+    background: #ffffff;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto decorativo en la tarjeta */
+.tarjeta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Título del formulario */
+.tarjeta h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin: 0 0 30px 0;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Estilos del formulario mejorados */
 #editForm {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
+    width: 100%;
 }
 
 #editForm label {
     display: flex;
     flex-direction: column;
-    font-weight: 500;
+    font-weight: 600;
     color: #2d3748;
     font-size: 0.95rem;
-    gap: 8px;
+    gap: 10px;
+    position: relative;
+}
+
+/* Efecto de etiqueta flotante */
+#editForm label span {
+    transition: all 0.3s ease;
 }
 
 #editForm input {
-    padding: 12px 16px;
-    border: 2px solid #b3c2d4;
-    border-radius: 10px;
+    padding: 15px 18px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
     font-size: 1rem;
     transition: all 0.3s ease;
     background: #f7fafc;
     font-family: inherit;
+    color: #2d3748;
 }
 
 #editForm input:focus {
     outline: none;
     border-color: #667eea;
     background: #ffffff;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
 }
 
 #editForm input:hover {
-    border-color: #e0e4e9;
+    border-color: #cbd5e0;
+    background: #ffffff;
 }
-.cont-btn button{
-    padding: 12px 30px;
+
+/* Validación visual (opcional para JS futuro) */
+#editForm input:invalid:not(:placeholder-shown) {
+    border-color: #fc8181;
+}
+
+#editForm input:valid:not(:placeholder-shown) {
+    border-color: #48bb78;
+}
+
+/* Contenedor del botón */
+.cont-btn {
+    margin-top: 10px;
+}
+
+.cont-btn button {
+    width: 100%;
+    padding: 16px 30px;
     color: #fff;
     border: none;
-    border-radius: 10px;
-    font-size: 0.95rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     font-family: inherit;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto de onda en el botón */
+.cont-btn button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.cont-btn button:hover::before {
+    width: 400px;
+    height: 400px;
+}
+
+.cont-btn button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+}
+
+.cont-btn button:active {
+    transform: translateY(-1px);
+}
+
+/* Botón secundario (volver) */
+.btn-volver {
+    display: inline-block;
+    margin: 0 0 30px 60px;
+    padding: 12px 24px;
+    color: #4a5568;
+    background: #e2e8f0;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-volver:hover {
+    background: #cbd5e0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive mejorado */
+@media (max-width: 768px) {
+    .cont-tarjeta {
+        padding: 40px 15px;
+    }
+    
+    .tarjeta {
+        padding: 40px 25px;
+        max-width: 100%;
+    }
+    
+    .tarjeta h2 {
+        font-size: 1.6rem;
+    }
+    
+    #editForm {
+        gap: 20px;
+    }
+    
+    .btn-volver {
+        margin: 0 20px 20px;
+        width: calc(100% - 40px);
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .tarjeta {
+        padding: 30px 20px;
+    }
+    
+    .tarjeta h2 {
+        font-size: 1.4rem;
+    }
+    
+    #editForm input {
+        padding: 12px 15px;
+        font-size: 0.95rem;
+    }
+    
+    .cont-btn button {
+        padding: 14px 25px;
+        font-size: 1rem;
+    }
 }

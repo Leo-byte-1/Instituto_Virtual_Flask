@@ -7,31 +7,48 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style-macro.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style-registro.css') }}">
-    <title>Registrar</title>
+    <title>Registrar Alumno</title>
 </head>
 <body>
     {{ macros.portada() }}
+    
+    <a href="{{ url_for('lista_alumnos') }}" class="btn-volver">← Volver a la lista</a>
+    
     <div class="cont-tarjeta">
         <div class="tarjeta">
             <form action="/user" method="POST" id="editForm">
+                <h2>Registrar Nuevo Alumno</h2>
                 <div>
-                    <label>Nombre: <input type="text" name="nombre"></label>
+                    <label>
+                        <span>Nombre</span>
+                        <input type="text" name="nombre" placeholder="Ingrese el nombre" required>
+                    </label>
                 </div>
                 <div>
-                    <label>Apellido: <input type="text" name="apellido"></label>
+                    <label>
+                        <span>Apellido</span>
+                        <input type="text" name="apellido" placeholder="Ingrese el apellido" required>
+                    </label>
                 </div>
                 <div>
-                    <label>Edad: <input type="number" name="edad"></label>
+                    <label>
+                        <span>Edad</span>
+                        <input type="number" name="edad" placeholder="Ingrese la edad" min="1" max="120" required>
+                    </label>
                 </div>
                 <div>
-                    <label>DNI: <input type="number" name="dni"></label>
+                    <label>
+                        <span>DNI</span>
+                        <input type="number" name="dni" placeholder="Ingrese el DNI" required>
+                    </label>
                 </div>
                 <div class="cont-btn">
-                    <button type="submit">Registrar</button>
+                    <button type="submit">Registrar Alumno</button>
                 </div>
             </form>
         </div>
     </div>
+    
     {{ macros.footer() }}
 </body>
 </html>

@@ -6,35 +6,149 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style-macro.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-index.css') }}">
-    <title>Notas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-calificaciones.css') }}">
+    <title>Calificaciones</title>
 </head>
 <body>
     {{ macros.portada() }}
 
-    <h1 class="titulo">Calificaciones</h1>
+    <h1 class="titulo">📊 Calificaciones</h1>
 
+    <!-- DEBUG: mostrar si la variable 'notas' llegó y algunas filas -->
+    <div id="debug-calificaciones" style="background: #fff3cd; border: 1px solid #ffeeba; padding: 8px; margin: 8px 0;">
+        <strong>DEBUG:</strong>
+        {% if notas is defined %}
+            <span>variable <code>notas</code> definida. longitud = {{ notas|length }}.</span>
+            {% if notas|length > 0 %}
+                <div style="margin-top:6px; font-size:0.9em;">
+                    <em>Primeras entradas (hasta 5):</em>
+                    <ul>
+                    {% for n in notas[:5] %}
+                        <li>{{ n.nombre }} — {{ n.materia }} — {{ n.notas }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% else %}
+            <span>variable <code>notas</code> NO definida en la plantilla.</span>
+        {% endif %}
+    </div>
+
+    <!-- Filtros y búsqueda -->
+    <div class="filtros-container">
+        <div class="filtro-group">
+            <input type="text" id="searchAlumno" placeholder="🔍 Buscar alumno..." class="filtro-input">
+        </div>
+        <div class="filtro-group">
+            <select id="filterMateria" class="filtro-select">
+                <option value="">Todas las materias</option>
+            </select>
+        </div>
+        <div class="filtro-group">
+            <select id="filterNota" class="filtro-select">
+                <option value="">Todas las notas</option>
+                <option value="aprobado">Aprobados (≥6)</option>
+                <option value="desaprobado">Desaprobados (&lt;6)</option>
+                <option value="excelente">Excelentes (≥9)</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Estadísticas -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                📚
+            </div>
+            <div class="stat-content">
+                <div class="stat-value" id="totalCalificaciones">{{ notas|length }}</div>
+                <div class="stat-label">Total Calificaciones</div>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);">
+                ✓
+            </div>
+            <div class="stat-content">
+                <div class="stat-value" id="totalAprobados">-</div>
+                <div class="stat-label">Aprobados</div>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #f56565 0%, #c53030 100%);">
+                ✗
+            </div>
+            <div class="stat-content">
+                <div class="stat-value" id="totalDesaprobados">-</div>
+                <div class="stat-label">Desaprobados</div>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);">
+                📈
+            </div>
+            <div class="stat-content">
+                <div class="stat-value" id="promedioGeneral">-</div>
+                <div class="stat-label">Promedio General</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabla de calificaciones -->
     <div class="cont-table">
-    <table class="datos">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Materia</th>
-                <th>Nota</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for n in notas %}
+        <table class="datos" id="tablaCalificaciones">
+            <thead>
                 <tr>
-                    <td>{{ n.nombre }}</td>
-                    <td>{{ n.materia }}</td>
-                    <td>{{ n.notas }}</td>
+                    <th>Alumno</th>
+                    <th>Materia</th>
+                    <th>Nota</th>
+                    <th>Estado</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% if notas and notas|length > 0 %}
+                    {% for n in notas %}
+                    <tr data-nombre="{{ n.nombre|lower }}" data-materia="{{ n.materia|lower }}" data-nota="{{ n.notas }}">
+                        <td class="alumno-cell">
+                            <div class="alumno-avatar">{{ n.nombre[0]|upper }}</div>
+                            <span>{{ n.nombre }}</span>
+                        </td>
+                        <td>{{ n.materia }}</td>
+                        <td class="nota-cell">
+                            <span class="nota-badge {% if n.notas >= 9 %}nota-excelente{% elif n.notas >= 6 %}nota-aprobado{% else %}nota-desaprobado{% endif %}">
+                                {{ n.notas }}
+                            </span>
+                        </td>
+                        <td>
+                            {% if n.notas >= 6 %}
+                                <span class="estado-badge estado-aprobado">✓ Aprobado</span>
+                            {% else %}
+                                <span class="estado-badge estado-desaprobado">✗ Desaprobado</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="4" class="no-data">No hay calificaciones registradas.</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Botón exportar -->
+    <div class="actions-container">
+        <button class="btn-export" onclick="exportarCSV()">
+            📥 Exportar a CSV
+        </button>
     </div>
 
     {{ macros.footer() }}
+
+    <script src="{{ url_for('static', filename='js/calificaciones.js') }}"></script>
 </body>
 </html>

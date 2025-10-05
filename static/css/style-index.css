@@ -1,40 +1,127 @@
-.bienvenida{
+/* Contenedor principal de bienvenida */
+.bienvenida {
     display: flex;
     flex-direction: column;
-    text-align: center;
+    align-items: center;
     width: 100%;
-    margin: 50px 0;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
 }
-.msj_bienvenida{
-    font-family: Verdana;
-    font-size: 17mm;
-    margin: 0;
+
+/* Mensaje de bienvenida con animación */
+.msj_bienvenida {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    margin: 0 0 20px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeInDown 0.6s ease-out;
 }
-p{
-    font-size: 5mm;
+
+/* Párrafo descriptivo */
+.bienvenida > p {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: #4a5568;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 0 50px 0;
+    line-height: 1.6;
+    animation: fadeInUp 0.6s ease-out 0.2s both;
 }
-.cont_nav{
+
+/* Grid de navegación */
+.cont_nav {
     display: grid;
-    margin: auto;
-    margin-top: 25px;
-    grid-template-columns: repeat(3, 260px);
-    grid-template-rows: 250px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
 }
-.cont_nav div{
+
+/* Cards individuales */
+.cont_nav div {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: solid 1px #302c2c;
-    border-radius: 10px;
+    padding: 40px 30px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.6s ease-out both;
 }
+
+/* Efecto de onda en hover */
+.cont_nav div::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.cont_nav div:hover::before {
+    opacity: 1;
+}
+
+/* Animación de entrada escalonada */
+.cont_nav div:nth-child(1) {
+    animation-delay: 0.3s;
+}
+
+.cont_nav div:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.cont_nav div:nth-child(3) {
+    animation-delay: 0.5s;
+}
+
+/* Hover en cards */
+.cont_nav div:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(102, 126, 234, 0.2);
+    border-color: #667eea;
+}
+
+/* Iconos/imágenes */
 .cont_nav img {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
 }
-.cont_nav button{
-    padding: 10px 20px;
+
+.cont_nav div:hover img {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Títulos de las cards */
+.cont_nav h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin: 0 0 20px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Botones mejorados */
+.cont_nav button {
+    padding: 12px 32px;
     cursor: pointer;
     color: #fff;
     border: none;
@@ -42,7 +129,92 @@ p{
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     font-family: inherit;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto de brillo en hover */
+.cont_nav button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.cont_nav button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.cont_nav button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.cont_nav button:active {
+    transform: translateY(0);
+}
+
+/* Animaciones */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive mejorado */
+@media (max-width: 768px) {
+    .cont_nav {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
+    
+    .bienvenida {
+        margin: 40px auto;
+    }
+    
+    .msj_bienvenida {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cont_nav div {
+        padding: 30px 20px;
+    }
+    
+    .cont_nav img {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .cont_nav h2 {
+        font-size: 1.2rem;
+    }
 }

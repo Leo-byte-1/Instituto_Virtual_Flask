@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style-lista_alumnos.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style-macro.css') }}">
-    <script src="{{ url_for('static', filename='js/CodigoListaAlumnos.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/notifications.css') }}">
     <title>Lista de alumnos</title>
 </head>
 
@@ -19,8 +19,8 @@
 
     <div class="cont-buscar">
         <form action="/buscar" method="POST">
-            <input placeholder="Buscar" type="text" name="buscar">
-            <button type="submit">Buscar</button>
+            <input placeholder="Buscar por nombre..." type="text" name="buscar">
+            <button type="submit">🔍 Buscar</button>
         </form>
     </div>
 
@@ -55,8 +55,8 @@
         <table class="aciones">
             <thead>
                 <tr>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -68,41 +68,62 @@
                             data-nombre="{{ d.nombre }}"
                             data-apellido="{{ d.apellido }}"
                             data-edad="{{ d.edad }}"
-                            data-dni="{{ d.dni }}">Edit</button>
+                            data-dni="{{ d.dni }}">✏️ Editar</button>
                     </td>
-                    <td><a href="{{ url_for('delete', id=d.id) }}"><button type="button"
-                                class="btn-action-delete">Delete</button></a></td>
+                    <td>
+                        <button type="button" class="btn-action-delete"
+                            onclick="confirmarEliminacion(event, '{{ d.nombre }}', '{{ d.apellido }}', '{{ d.id }}')">
+                            🗑️ Eliminar
+                        </button>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+    </div>
 
-        <!-- Modal único reutilizable -->
-        <div class="modal-overlay" id="modalOverlay" aria-hidden="true">
-            <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="modalTitle">Editar alumno</h2>
-                    <button class="close-btn" id="closeModal" type="button">&times;</button>
-                </div>
-                <div class="modal-body">
-                     <form id="editForm" action="" method="POST">
-                            <label>Nombre: <input id="inputNombre" type="text" name="nombre" value=""></label>
-                            <label>Apellido: <input id="inputApellido" type="text" name="apellido" value=""></label>
-                            <label>Edad: <input id="inputEdad" type="number" name="edad" value=""></label>
-                            <label>DNI: <input id="inputDni" type="number" name="dni" value=""></label>
-                      </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="modal-btn btn-secondary" id="cancelBtn" type="button">Cancelar</button>
-                    <button class="modal-btn btn-primary" id="acceptBtn" type="button">Aceptar</button>
-                </div>
+    <a href="{{url_for('registrar')}}"><button class="b-agregar">Agregar Alumno</button></a>
+
+    <!-- Modal único reutilizable (FUERA de la tabla) -->
+    <div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+        <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Editar alumno</h2>
+                <button class="close-btn" id="closeModal" type="button">&times;</button>
+            </div>
+            <div class="modal-body">
+                 <form id="editForm" action="" method="POST">
+                        <label>
+                            <span>Nombre</span>
+                            <input id="inputNombre" type="text" name="nombre" value="" placeholder="Ingrese el nombre" required>
+                        </label>
+                        <label>
+                            <span>Apellido</span>
+                            <input id="inputApellido" type="text" name="apellido" value="" placeholder="Ingrese el apellido" required>
+                        </label>
+                        <label>
+                            <span>Edad</span>
+                            <input id="inputEdad" type="number" name="edad" value="" placeholder="Ingrese la edad" min="1" max="120" required>
+                        </label>
+                        <label>
+                            <span>DNI</span>
+                            <input id="inputDni" type="number" name="dni" value="" placeholder="Ingrese el DNI" required>
+                        </label>
+                  </form>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn btn-secondary" id="cancelBtn" type="button">Cancelar</button>
+                <button class="modal-btn btn-primary" id="acceptBtn" type="button">Guardar Cambios</button>
             </div>
         </div>
     </div>
 
-    <a href="{{url_for('registrar')}}"><button class="b-agregar">Agregar</button></a>
-
     {{ macros.footer() }}
+
+    <!-- Scripts al final del body -->
+    <script src="{{ url_for('static', filename='js/notifications.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/pagination.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/CodigoListaAlumnos.js') }}"></script>
 </body>
 
 </html>
