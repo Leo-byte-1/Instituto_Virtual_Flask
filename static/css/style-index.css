@@ -20,6 +20,7 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: fadeInDown 0.6s ease-out;
+    text-align: center;
 }
 
 /* Párrafo descriptivo */
@@ -117,6 +118,7 @@
     color: #2d3748;
     margin: 0 0 20px 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
 }
 
 /* Botones mejorados */
@@ -189,32 +191,208 @@
 }
 
 /* Responsive mejorado */
-@media (max-width: 768px) {
-    .cont_nav {
-        grid-template-columns: 1fr;
-        max-width: 400px;
+@media (max-width: 1024px) {
+    .bienvenida {
+        margin: 50px auto;
+        padding: 0 30px;
     }
     
+    .cont_nav {
+        gap: 25px;
+    }
+}
+
+@media (max-width: 768px) {
     .bienvenida {
         margin: 40px auto;
+        padding: 0 20px;
     }
     
     .msj_bienvenida {
-        font-size: 2rem;
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+    }
+    
+    .bienvenida > p {
+        font-size: 1.05rem;
+        margin-bottom: 40px;
+        max-width: 600px;
+    }
+    
+    .cont_nav {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        gap: 20px;
+    }
+    
+    .cont_nav div {
+        padding: 35px 25px;
+    }
+    
+    .cont_nav img {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .cont_nav h2 {
+        font-size: 1.3rem;
+    }
+    
+    .cont_nav button {
+        padding: 11px 28px;
+        font-size: 0.95rem;
     }
 }
 
 @media (max-width: 480px) {
+    .bienvenida {
+        margin: 30px auto;
+        padding: 0 15px;
+    }
+    
+    .msj_bienvenida {
+        font-size: 1.8rem;
+        margin-bottom: 12px;
+    }
+    
+    .bienvenida > p {
+        font-size: 0.95rem;
+        margin-bottom: 30px;
+        line-height: 1.5;
+    }
+    
+    .cont_nav {
+        max-width: 100%;
+        gap: 15px;
+    }
+    
     .cont_nav div {
         padding: 30px 20px;
+        border-radius: 14px;
     }
     
     .cont_nav img {
         width: 60px;
         height: 60px;
+        margin-bottom: 15px;
     }
     
     .cont_nav h2 {
         font-size: 1.2rem;
+        margin-bottom: 15px;
     }
+    
+    .cont_nav button {
+        padding: 10px 24px;
+        font-size: 0.9rem;
+        border-radius: 8px;
+    }
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 360px) {
+    .bienvenida {
+        margin: 25px auto;
+        padding: 0 10px;
+    }
+    
+    .msj_bienvenida {
+        font-size: 1.6rem;
+    }
+    
+    .bienvenida > p {
+        font-size: 0.9rem;
+        margin-bottom: 25px;
+    }
+    
+    .cont_nav div {
+        padding: 25px 15px;
+    }
+    
+    .cont_nav img {
+        width: 55px;
+        height: 55px;
+    }
+    
+    .cont_nav h2 {
+        font-size: 1.1rem;
+    }
+    
+    .cont_nav button {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Modo landscape en móviles */
+@media (max-width: 768px) and (orientation: landscape) {
+    .bienvenida {
+        margin: 20px auto;
+    }
+    
+    .msj_bienvenida {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+    
+    .bienvenida > p {
+        margin-bottom: 25px;
+    }
+    
+    .cont_nav {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 100%;
+        gap: 15px;
+    }
+    
+    .cont_nav div {
+        padding: 25px 15px;
+    }
+    
+    .cont_nav img {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .cont_nav h2 {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+    }
+    
+    .cont_nav button {
+        padding: 8px 20px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+    .msj_bienvenida,
+    .bienvenida > p,
+    .cont_nav div {
+        animation: none;
+    }
+    
+    .cont_nav div:hover {
+        transform: none;
+    }
+    
+    .cont_nav div:hover img {
+        transform: none;
+    }
+    
+    .cont_nav button::before {
+        transition: none;
+    }
+}
+
+/* Focus visible para accesibilidad de teclado */
+.cont_nav button:focus-visible {
+    outline: 3px solid #667eea;
+    outline-offset: 3px;
+}
+
+.cont_nav div:focus-within {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
 }

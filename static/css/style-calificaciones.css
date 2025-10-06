@@ -124,6 +124,7 @@
     justify-content: center;
     font-weight: 700;
     font-size: 0.95rem;
+    flex-shrink: 0;
 }
 
 .nota-cell {
@@ -231,17 +232,44 @@
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        padding: 0 15px;
+        margin: 35px auto;
+    }
+    
+    .filtros-container {
+        gap: 12px;
+        margin: 25px auto;
+    }
+}
+
 @media (max-width: 768px) {
     .filtros-container {
         flex-direction: column;
+        gap: 12px;
+        padding: 0 15px;
+        margin: 20px auto;
     }
     
     .filtro-group {
         max-width: 100%;
+        width: 100%;
+    }
+    
+    .filtro-input,
+    .filtro-select {
+        padding: 12px 16px;
+        font-size: 0.95rem;
     }
     
     .stats-container {
         grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 0 15px;
+        margin: 25px auto;
     }
     
     .stat-card {
@@ -258,28 +286,160 @@
         font-size: 1.6rem;
     }
     
+    .stat-label {
+        font-size: 0.85rem;
+    }
+    
     .alumno-cell {
         flex-direction: column;
         gap: 8px;
     }
     
+    .alumno-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 0.85rem;
+    }
+    
+    .nota-badge {
+        padding: 5px 12px;
+        font-size: 0.9rem;
+    }
+    
+    .estado-badge {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+    
     .actions-container {
         margin: 20px 0 40px;
+        padding: 0 15px;
     }
     
     .btn-export {
-        width: calc(100% - 40px);
+        width: 100%;
+        padding: 12px 28px;
+        font-size: 0.95rem;
+    }
+    
+    .no-data {
+        padding: 40px 15px !important;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .cont-table {
+        margin: 30px 0 20px;
     }
 }
 
 @media (max-width: 480px) {
+    .filtros-container {
+        padding: 0 10px;
+        margin: 15px auto;
+    }
+    
+    .filtro-input,
+    .filtro-select {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+        border-radius: 8px;
+    }
+    
+    .stats-container {
+        gap: 12px;
+        padding: 0 10px;
+        margin: 20px auto;
+    }
+    
+    .stat-card {
+        padding: 16px;
+        border-radius: 12px;
+    }
+    
+    .stat-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 22px;
+    }
+    
+    .stat-value {
+        font-size: 1.4rem;
+    }
+    
+    .stat-label {
+        font-size: 0.8rem;
+    }
+    
+    .alumno-cell {
+        gap: 6px;
+    }
+    
+    .alumno-avatar {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+    }
+    
+    .alumno-cell span {
+        font-size: 0.85rem;
+    }
+    
     .nota-badge {
         padding: 4px 10px;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
     
     .estado-badge {
         padding: 4px 8px;
         font-size: 0.75rem;
+    }
+    
+    .actions-container {
+        margin: 15px 0 30px;
+        padding: 0 10px;
+    }
+    
+    .btn-export {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+    }
+    
+    .no-data {
+        padding: 30px 10px !important;
+        font-size: 0.9rem;
+    }
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 360px) {
+    .stat-card {
+        padding: 14px;
+        gap: 15px;
+    }
+    
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+    
+    .stat-value {
+        font-size: 1.3rem;
+    }
+    
+    .stat-label {
+        font-size: 0.75rem;
+    }
+    
+    .nota-badge {
+        padding: 3px 8px;
+        font-size: 0.8rem;
+    }
+    
+    .estado-badge {
+        padding: 3px 6px;
+        font-size: 0.7rem;
     }
 }

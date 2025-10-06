@@ -1,8 +1,8 @@
 /* Título de la página */
 .titulo {
-    margin: 40px 0 0 60px;
+    margin: 40px 0 0 5%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: clamp(1.8rem, 5vw, 3rem);
     font-weight: 700;
     color: #2d3748;
 }
@@ -10,13 +10,14 @@
 /* Botones de acción en tabla */
 .btn-action, .btn-action-delete {
     border-style: none;
-    width: 90%;
+    width: 100%;
+    max-width: 100px;
     height: 35px;
     border-radius: 8px;
     cursor: pointer;
     color: #fff;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
@@ -47,7 +48,7 @@
 /* Botón agregar mejorado */
 .b-agregar {
     padding: 15px 35px;
-    margin: 30px 0 50px 60px;
+    margin: 30px 0 50px 5%;
     color: #fff;
     border: none;
     border-radius: 12px;
@@ -77,7 +78,7 @@
     transform: translateY(0);
 }
 
-/* Overlay del modal con efecto blur mejorado */
+/* Overlay del modal */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -93,6 +94,7 @@
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
     z-index: 1000;
+    padding: 20px;
 }
 
 .modal-overlay.active {
@@ -100,12 +102,12 @@
     visibility: visible;
 }
 
-/* Contenedor del modal mejorado */
+/* Contenedor del modal */
 .modal {
     background: #ffffff;
     border-radius: 20px;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-    width: 90%;
+    width: 100%;
     max-width: 520px;
     max-height: 90vh;
     overflow: hidden;
@@ -117,7 +119,7 @@
     transform: scale(1) translateY(0);
 }
 
-/* Header del modal mejorado */
+/* Header del modal */
 .modal-header {
     padding: 28px 32px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -167,14 +169,14 @@
     transform: rotate(90deg) scale(1.1);
 }
 
-/* Body del modal mejorado */
+/* Body del modal */
 .modal-body {
     padding: 36px 32px;
     max-height: 60vh;
     overflow-y: auto;
 }
 
-/* Formulario mejorado */
+/* Formulario */
 #editForm {
     display: flex;
     flex-direction: column;
@@ -214,7 +216,7 @@
     background: #ffffff;
 }
 
-/* Footer del modal mejorado */
+/* Footer del modal */
 .modal-footer {
     padding: 24px 32px;
     background: #f7fafc;
@@ -224,7 +226,7 @@
     border-top: 1px solid #e2e8f0;
 }
 
-/* Botones del modal mejorados */
+/* Botones del modal */
 .modal-btn {
     padding: 13px 28px;
     border: none;
@@ -263,7 +265,7 @@
     transform: translateY(0);
 }
 
-/* Scrollbar personalizada para el body del modal */
+/* Scrollbar del modal */
 .modal-body::-webkit-scrollbar {
     width: 10px;
 }
@@ -283,68 +285,7 @@
     background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
 }
 
-/* Animación de carga */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-/* Mensaje cuando no hay resultados */
-.cont-table td[colspan] {
-    padding: 40px 20px;
-    color: #718096;
-    font-style: italic;
-    font-size: 1.1rem;
-}
-
-/* Responsive mejorado */
-@media (max-width: 768px) {
-    .titulo {
-        margin: 30px 20px;
-    }
-    
-    .b-agregar {
-        margin: 20px 20px 40px;
-        width: calc(100% - 40px);
-    }
-    
-    .modal {
-        width: 95%;
-        margin: 20px;
-    }
-    
-    .modal-header,
-    .modal-body,
-    .modal-footer {
-        padding: 24px 20px;
-    }
-    
-    .modal-title {
-        font-size: 1.3rem;
-    }
-    
-    .modal-footer {
-        flex-direction: column;
-    }
-    
-    .modal-btn {
-        width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    .btn-action,
-    .btn-action-delete {
-        font-size: 0.8rem;
-        padding: 8px 0;
-    }
-}
-
-/* Sistema de paginación */
+/* Paginación */
 .pagination-container {
     display: flex;
     flex-direction: column;
@@ -362,6 +303,8 @@
     padding: 12px 24px;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .pagination-btn {
@@ -400,6 +343,7 @@
 .pagination-items-info {
     font-size: 0.9rem;
     color: #718096;
+    text-align: center;
 }
 
 .pagination-items-info strong {
@@ -407,75 +351,7 @@
     font-weight: 600;
 }
 
-/* Responsive paginación */
-@media (max-width: 640px) {
-    .pagination {
-        flex-direction: column;
-        gap: 12px;
-        padding: 16px 20px;
-    }
-    
-    .pagination-btn {
-        width: 200px;
-    }
-}
-
-/* Ajustes para la tabla unificada */
-.datos thead th:nth-child(5),
-.datos thead th:nth-child(6) {
-    width: 120px;
-}
-
-.datos tbody td:nth-child(5),
-.datos tbody td:nth-child(6) {
-    padding: 8px;
-}
-
-/* Botones en la tabla */
-.btn-action, .btn-action-delete {
-    border-style: none;
-    width: 100%;
-    max-width: 100px;
-    height: 35px;
-    border-radius: 8px;
-    cursor: pointer;
-    color: #fff;
-    font-weight: 600;
-    font-size: 0.85rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.btn-action {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.btn-action:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-}
-
-.btn-action-delete {
-    background: linear-gradient(135deg, #f56565 0%, #c53030 100%);
-}
-
-.btn-action-delete:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(245, 101, 101, 0.4);
-}
-
-.btn-action:active,
-.btn-action-delete:active {
-    transform: translateY(0);
-}
-
-/* Ajuste para celdas de DNI e ID */
-.datos td.id {
-    font-weight: 600;
-    color: #4a5568;
-}
-
-/* Empty state en la tabla */
+/* Empty state */
 .no-data {
     padding: 20px !important;
     text-align: center;
@@ -529,10 +405,54 @@
     box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
 }
 
-/* Responsive */
+/* Responsive mejorado */
+@media (max-width: 1024px) {
+    .titulo {
+        margin: 35px 0 0 3%;
+    }
+    
+    .b-agregar {
+        margin: 25px 0 40px 3%;
+    }
+}
+
 @media (max-width: 768px) {
-    .datos {
-        font-size: 0.85rem;
+    .titulo {
+        margin: 30px 20px 0;
+        font-size: 1.8rem;
+    }
+    
+    .b-agregar {
+        margin: 20px 20px 30px;
+        width: calc(100% - 40px);
+        font-size: 1rem;
+        padding: 12px 30px;
+    }
+    
+    .modal {
+        width: 95%;
+        margin: 10px;
+    }
+    
+    .modal-header {
+        padding: 24px 20px;
+    }
+    
+    .modal-title {
+        font-size: 1.3rem;
+    }
+    
+    .modal-body {
+        padding: 24px 20px;
+    }
+    
+    .modal-footer {
+        padding: 20px;
+        flex-direction: column;
+    }
+    
+    .modal-btn {
+        width: 100%;
     }
     
     .btn-action, .btn-action-delete {
@@ -542,19 +462,119 @@
         max-width: 80px;
     }
     
+    .pagination {
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px 20px;
+    }
+    
+    .pagination-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 640px) {
+    .datos {
+        font-size: 0.85rem;
+    }
+    
     .datos thead th:nth-child(5),
     .datos thead th:nth-child(6) {
         width: 90px;
     }
 }
 
-@media (max-width: 640px) {
-    /* En móviles, hacer scroll horizontal */
-    .cont-table {
-        overflow-x: auto;
+@media (max-width: 480px) {
+    .titulo {
+        margin: 20px 15px 0;
+        font-size: 1.5rem;
     }
     
-    .datos {
-        min-width: 600px;
+    .b-agregar {
+        margin: 15px 15px 25px;
+        width: calc(100% - 30px);
+        padding: 12px 25px;
+        font-size: 0.95rem;
+    }
+    
+    .b-agregar::before {
+        font-size: 1.2rem;
+    }
+    
+    .modal {
+        width: 100%;
+        max-height: 95vh;
+        border-radius: 15px;
+    }
+    
+    .modal-header {
+        padding: 20px 15px;
+    }
+    
+    .modal-title {
+        font-size: 1.2rem;
+    }
+    
+    .close-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 24px;
+    }
+    
+    .modal-body {
+        padding: 20px 15px;
+    }
+    
+    #editForm {
+        gap: 20px;
+    }
+    
+    #editForm input {
+        padding: 12px 15px;
+        font-size: 0.95rem;
+    }
+    
+    .modal-footer {
+        padding: 15px;
+    }
+    
+    .modal-btn {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+    }
+    
+    .btn-action, .btn-action-delete {
+        font-size: 0.7rem;
+        height: 30px;
+        max-width: 70px;
+    }
+    
+    .empty-state-icon {
+        font-size: 50px;
+    }
+    
+    .empty-state-title {
+        font-size: 1.1rem;
+    }
+    
+    .empty-state-description {
+        font-size: 0.85rem;
+    }
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 360px) {
+    .modal-overlay {
+        padding: 10px;
+    }
+    
+    .modal-title {
+        font-size: 1.1rem;
+    }
+    
+    .btn-action, .btn-action-delete {
+        font-size: 0.65rem;
+        max-width: 65px;
     }
 }
