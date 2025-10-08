@@ -1,11 +1,12 @@
 /* Contenedor de filtros */
 .filtros-container {
     display: flex;
-    gap: 15px;
+    gap: 30px;
+    width: 90%;
+    margin: auto;
     justify-content: center;
     align-items: center;
     margin: 30px auto;
-    padding: 0 20px;
     max-width: 1000px;
     flex-wrap: wrap;
 }
@@ -19,7 +20,7 @@
 .filtro-input,
 .filtro-select {
     width: 100%;
-    padding: 12px 18px;
+    padding: 10px 5px;
     border: 2px solid #e2e8f0;
     border-radius: 10px;
     font-size: 1rem;
@@ -27,6 +28,9 @@
     background: #fff;
     color: #2d3748;
     transition: all 0.3s ease;
+}
+.filtro-input {
+    width: 96%;
 }
 
 .filtro-input:focus,
@@ -250,7 +254,6 @@
     .filtros-container {
         flex-direction: column;
         gap: 12px;
-        padding: 0 15px;
         margin: 20px auto;
     }
     
@@ -261,7 +264,6 @@
     
     .filtro-input,
     .filtro-select {
-        padding: 12px 16px;
         font-size: 0.95rem;
     }
     
@@ -336,13 +338,11 @@
 
 @media (max-width: 480px) {
     .filtros-container {
-        padding: 0 10px;
         margin: 15px auto;
     }
     
     .filtro-input,
     .filtro-select {
-        padding: 10px 14px;
         font-size: 0.9rem;
         border-radius: 8px;
     }

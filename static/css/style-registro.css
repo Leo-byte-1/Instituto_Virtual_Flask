@@ -151,28 +151,6 @@
     transform: translateY(-1px);
 }
 
-/* Botón secundario (volver) */
-.btn-volver {
-    display: inline-block;
-    margin: 0 0 30px 5%;
-    padding: 12px 24px;
-    color: #4a5568;
-    background: #e2e8f0;
-    border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.btn-volver:hover {
-    background: #cbd5e0;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
 /* Animación de entrada */
 @keyframes fadeIn {
     from {
@@ -189,10 +167,6 @@
 @media (max-width: 1024px) {
     .cont-tarjeta {
         padding: 50px 20px;
-    }
-    
-    .btn-volver {
-        margin: 0 0 25px 3%;
     }
 }
 
@@ -229,13 +203,6 @@
     .cont-btn button {
         padding: 14px 28px;
         font-size: 1rem;
-    }
-    
-    .btn-volver {
-        margin: 0 20px 20px;
-        width: calc(100% - 40px);
-        text-align: center;
-        font-size: 0.95rem;
     }
 }
 
@@ -282,13 +249,6 @@
         padding: 13px 24px;
         font-size: 0.95rem;
         border-radius: 10px;
-    }
-    
-    .btn-volver {
-        margin: 0 15px 15px;
-        width: calc(100% - 30px);
-        padding: 10px 20px;
-        font-size: 0.9rem;
     }
 }
 
