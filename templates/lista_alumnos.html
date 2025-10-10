@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style-macro.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style-lista_alumnos.css') }}">
-    <script src="{{ url_for('static', filename='js/CodigoListaAlumnos.js') }}" defer></script>
     <title>Document</title>
 </head>
 
@@ -25,6 +24,8 @@
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Edad</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
 
@@ -35,56 +36,17 @@
                     <td>{{ d.nombre }}</td>
                     <td>{{ d.apellido }}</td>
                     <td>{{ d.edad }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <table class="aciones">
-            <thead>
-                <tr>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for d in data %}
-                <tr>
                     <td>
-                        <button class="btn-action" type="button"
-                            data-id="{{ d.id }}"
-                            data-nombre="{{ d.nombre }}"
-                            data-apellido="{{ d.apellido }}"
-                            data-edad="{{ d.edad }}"
-                            data-dni="{{ d.dni }}">Edit</button>
+                        <a href="{{ url_for('editar', id=d.id) }}"><button class="btn-action">Edit</button></a>
                     </td>
-                    <td><a href="{{ url_for('delete', id=d.id) }}"><button type="button"
-                                class="btn-action-delete">Delete</button></a></td>
+                    <td>
+                        <a href="{{ url_for('delete', id=d.id) }}"><button type="button"
+                                class="btn-action-delete">Delete</button></a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-
-        <!-- Modal único reutilizable -->
-        <div class="modal-overlay" id="modalOverlay" aria-hidden="true">
-            <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="modalTitle">Editar alumno</h2>
-                    <button class="close-btn" id="closeModal" type="button">&times;</button>
-                </div>
-                <div class="modal-body">
-                     <form id="editForm" action="" method="POST">
-                            <label>Nombre: <input id="inputNombre" type="text" name="nombre" value=""></label>
-                            <label>Apellido: <input id="inputApellido" type="text" name="apellido" value=""></label>
-                            <label>Edad: <input id="inputEdad" type="number" name="edad" value=""></label>
-                            <label>DNI: <input id="inputDni" type="number" name="dni" value=""></label>
-                      </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="modal-btn btn-secondary" id="cancelBtn" type="button">Cancelar</button>
-                    <button class="modal-btn btn-primary" id="acceptBtn" type="button">Aceptar</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <a href="{{url_for('registrar')}}"><button class="b-agregar">Agregar</button></a>

@@ -77,6 +77,11 @@ def edit(id):
 
     return redirect(url_for('lista_alumnos'))
 
+@app.route("/editar")
+def editar():
+    
+    return render_template("editar.html")
+
 @app.route("/registro")
 def registrar():
 
