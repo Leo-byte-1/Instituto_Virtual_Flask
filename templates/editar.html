@@ -13,23 +13,25 @@
     {{ macros.portada() }}
     <div class="cont-tarjeta">
         <div class="tarjeta">
-            <form action="/edit" method="POST" id="editForm">
-                <div>
-                    <label>Nombre: <input type="text" name="nombre" value=""></label>
-                </div>
-                <div>
-                    <label>Apellido: <input type="text" name="apellido" value=""></label>
-                </div>
-                <div>
-                    <label>Edad: <input type="number" name="edad" value=""></label>
-                </div>
-                <div>
-                    <label>DNI: <input type="number" name="dni" value=""></label>
-                </div>
-                <div class="cont-btn">
-                    <button type="submit">Editar</button>
-                </div>
-            </form>
+            {% for d in datos %}
+                <form action="{{ url_for('edit', id = d.id) }}" method="POST" id="editForm">
+                        <div>
+                            <label>Nombre: <input type="text" name="nombre" value="{{ d.nombre }}"></label>
+                        </div>
+                        <div>
+                            <label>Apellido: <input type="text" name="apellido" value="{{ d.apellido }}"></label>
+                        </div>
+                        <div>
+                            <label>Edad: <input type="number" name="edad" value="{{ d.edad }}"></label>
+                        </div>
+                        <div>
+                            <label>DNI: <input type="number" name="dni" value="{{ d.dni }}"></label>
+                        </div>
+                        <div class="cont-btn">
+                            <button type="submit">Editar</button>
+                        </div>
+                </form>
+                {% endfor %}
         </div>
     </div>
     {{ macros.footer() }}

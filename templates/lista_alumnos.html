@@ -37,7 +37,7 @@
                     <td>{{ d.apellido }}</td>
                     <td>{{ d.edad }}</td>
                     <td>
-                        <a href="{{ url_for('editar', id=d.id) }}"><button class="btn-action">Edit</button></a>
+                        <a href="{{ url_for('editar', id = d.id) }}"><button class="btn-action">Edit</button></a>
                     </td>
                     <td>
                         <a href="{{ url_for('delete', id=d.id) }}"><button type="button"

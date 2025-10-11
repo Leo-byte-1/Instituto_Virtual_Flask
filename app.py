@@ -58,7 +58,7 @@ def delete(id):
 
     return redirect(url_for('lista_alumnos'))
 
-@app.route("/edit/<string:id>", methods=['POST'])
+@app.route("/edit/<id>", methods=['POST'])
 def edit(id):
     conn = db.conexion()
     cursor = conn.cursor()
@@ -77,10 +77,21 @@ def edit(id):
 
     return redirect(url_for('lista_alumnos'))
 
-@app.route("/editar")
-def editar():
-    
-    return render_template("editar.html")
+@app.route("/editar/<id>")
+def editar(id):
+    conn = db.conexion()
+    cursor = conn.cursor()
+    sql = ("SELECT * FROM alumnos WHERE id = %s")
+    idr = (id,)
+    cursor.execute(sql, idr)
+    myresult = cursor.fetchall()
+    datos = []
+    nombreColumna = [column[0] for column in cursor.description]
+    for datosdb in myresult:
+        datos.append(dict(zip(nombreColumna, datosdb)))
+    cursor.close()
+
+    return render_template("editar.html", datos = datos)
 
 @app.route("/registro")
 def registrar():
