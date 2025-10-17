@@ -25,26 +25,6 @@ def lista_alumnos():
 
     return render_template("lista_alumnos.html", data = insertObject)
 
-@app.route("/user", methods=["POST"])
-def addUser():
-    conn = db.conexion()
-    cursor = conn.cursor()
-
-    nombre = request.form["nombre"]
-    apellido = request.form["apellido"]
-    edad = request.form["edad"]
-    dni = request.form["dni"]
-
-    if nombre and apellido and edad and dni:
-        sql = "INSERT INTO alumnos (nombre, apellido, edad, dni) VALUES (%s, %s, %s, %s)"
-        datos = (nombre, apellido, edad, dni)
-        cursor.execute(sql, datos)
-        conn.commit()
-        cursor.close()
-        conn.close()
-
-    return redirect(url_for('lista_alumnos'))
-
 @app.route("/delete/<string:id>")
 def delete(id):
     conn = db.conexion()
@@ -94,9 +74,29 @@ def editar(id):
     return render_template("editar.html", datos = datos)
 
 @app.route("/registro")
-def registrar():
+def registro():
 
     return render_template("registro.html")
+
+@app.route("/registrar", methods=["POST"])
+def registrar():
+    conn = db.conexion()
+    cursor = conn.cursor()
+
+    nombre = request.form["nombre"]
+    apellido = request.form["apellido"]
+    edad = request.form["edad"]
+    dni = request.form["dni"]
+
+    if nombre and apellido and edad and dni:
+        sql = "INSERT INTO alumnos (nombre, apellido, edad, dni) VALUES (%s, %s, %s, %s)"
+        datos = (nombre, apellido, edad, dni)
+        cursor.execute(sql, datos)
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+    return redirect(url_for('lista_alumnos'))
 
 @app.route("/calificaciones")
 def calificaciones():

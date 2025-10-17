@@ -44,25 +44,44 @@
     margin-top: 80px;
     margin-bottom: 100px;
 }
-
-.datos,
-.aciones {
+table {
     border-collapse: collapse;
 }
-
 th,
 td {
     width: 200px;
     height: 25px;
     border: solid 1px #000;
-}
-
-.datos td {
     padding: 5px;
 }
-
-.id {
+.dni{
     text-align: center;
+}
+.aciones th,
+td {
+    width: 70px;
+    height: 25px;
+    border: solid 1px #000;
+}
+/* Botones de la tabla */
+.th-button{
+    width: 100px;
+}
+.t-button{
+    padding: 0;
+}
+.btn-action, .btn-action-delete {
+    border-style: none;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    color: #fff;
+}
+.btn-action {
+    background: rgb(117, 117, 238);
+}
+.btn-action-delete {
+    background: rgb(231, 65, 65);
 }
 
 /*Estilo del titulo de la página*/

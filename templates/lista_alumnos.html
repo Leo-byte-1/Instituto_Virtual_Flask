@@ -17,31 +17,32 @@
     <h1 class="titulo">Lista de Estudiantes</h1>
 
     <div class="cont-table">
-        <table class="datos">
+        <table>
             <thead>
                 <tr>
                     <th>DNI</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Edad</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th class="th-button">Editar</th>
+                    <th class="th-button">Borrar</th>
                 </tr>
             </thead>
 
             <tbody>
                 {% for d in data %}
                 <tr>
-                    <td class="id">{{ d.dni }}</td>
+                    <td class="dni">{{ d.dni }}</td>
                     <td>{{ d.nombre }}</td>
                     <td>{{ d.apellido }}</td>
                     <td>{{ d.edad }}</td>
-                    <td>
-                        <a href="{{ url_for('editar', id = d.id) }}"><button class="btn-action">Edit</button></a>
+
+                    <td class="t-button">
+                        <a href="{{ url_for('editar', id = d.id) }}"><button class="btn-action">Editar</button></a>
                     </td>
-                    <td>
+                    <td class="t-button">
                         <a href="{{ url_for('delete', id=d.id) }}"><button type="button"
-                                class="btn-action-delete">Delete</button></a>
+                                class="btn-action-delete">Borrar</button></a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -49,7 +50,7 @@
         </table>
     </div>
 
-    <a href="{{url_for('registrar')}}"><button class="b-agregar">Agregar</button></a>
+    <a href="{{url_for('registro')}}"><button class="b-agregar">Agregar</button></a>
 
     {{ macros.footer() }}
 </body>
